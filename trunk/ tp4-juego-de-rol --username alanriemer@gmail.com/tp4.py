@@ -12,4 +12,12 @@ class Criatura(object):
 		for valor in self.caracteristicas.values():
                     suma_caracteristicas+=valor
 		self.indicadores={"hp":suma_caracteristicas,"mp":self.caracteristicas["inteligencia"]+self.caracteristicas["sabiduria"],"xp":0}
-	
+	def obtener_estado(self):
+                """Método que devuelve un diccionario con los atributos de la criatura y su estado"""
+                estado_atributos={}
+                for clave in self.caracteristicas.keys():
+                        estado_atributos[clave]=self.caracteristicas[clave]
+                for clave in self.indicadores.keys():
+                        estado_atributos[clave]=self.indicadores[clave]
+                return estado_atributos
+                
