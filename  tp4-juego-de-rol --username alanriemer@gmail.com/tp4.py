@@ -3,7 +3,7 @@ class Criatura(object):
 	"""Objeto donde se encuentran los atributos y habilidades de las criaturas"""
 	def __init__(self):
 		"""Metodo constructor de la clase. Crea la instancia de la clase de las criaturas.
-		precondiciones: Las 6 caracteristicas de la criatura deben ser numeros naturales, con el 0 incluido"""
+		precondiciones: """
 		self.caracteristicas={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0}
 		for clave in self.caracteristicas.keys():
                     tirar_dados=random.randrange(1,7)+random.randrange(1,7)+random.randrange(1,7)
