@@ -32,7 +32,7 @@ class Criatura(object):
                 """Metodo que devuelve diccionario con las habilidades de la criatura.
 Las claves son el nombre de la habilidad y los valores son la instancia de la clase correspondiente"""
                 habilidades_totales={"Big_Bang_Attack":Big_Bang_Attack(),"Psicoataque":Psicoataque(),"Chupacabras":Chupacabras(),"Golpe_martillo":Golpe_martillo(),
-                "Ataque_wachenhausen":Ataque_wachenhausen(),"Fatality":Fatality()}
+                "Ataque_wachenhausen":Ataque_wachenhausen(),"Fatality":Fatality(),"Furia_de_Ares":Furia_de_Ares()}
                 habilidades_a_usar={}
                 cont=3
                 while cont>0:
@@ -210,5 +210,32 @@ def __init__(self):
         #Si la criatura cumple con los requisitos necesarios, se procede
         modificaciones_criatura_destino={"fuerza":-1,"inteligencia":0,"contextura":-1, "destreza":0, "carisma":0,"sabiduria":0,"xp":1,"hp":-15,"mp":}
         modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":1, "destreza":3, "carisma":5,"sabiduria":2,"xp":3,"hp":15,"mp":2}   
+        return modificaciones_criatura_origen, modificaciones_criatura_destino
+class Furia_de_Ares(object):
+    """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
+def __init__(self):
+        """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
+        self.nombre="Furia de Ares"
+        self.descripcion="En este ataque la criatura invoca al dios griego de la guerra, el cual desatara una gran furia, quitandole fuerza y vida al oponente. La criatura que lo invoca debe tener un nivel elevado de magia"
+        self.autor="Masello-Riemer"
+    def obtener_costos(self):
+        """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad"""
+        valores_minimos={"sabiduria":5,"xp":2,"mp":8}
+        return valores_minimos
+    def obtener_consecuencias(self,origen,destino):
+        """Devuelve dos diccionarios con las alteraciones a realizar sobre los atributos de la criatura origen y la criatura destino
+        precondiciones: origen y destino deben ser del tipo criatura
+        postcondiciones: devuelve dos diccionarios.Se devuelven diccionarios con valores 0 en caso en que la criatura de origen no tiene los atributos necesarios para realizar la habilidad"""
+        valores_minimos=self.obtener_costos()    #Diccionario con los costos para ejecutar la habilidad
+        atributos_criatura=origen.obtener_estado()          #Diccionario con los atributos de la criatura
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":0,"hp":0,"mp":0}
+        mofificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":0,"hp":0,"mp":0}
+        for clave in valores_minimos.keys():
+            if atributos_criatura.haskey(clave):
+                if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
+                    return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
+        #Si la criatura cumple con los requisitos necesarios, se procede
+        modificaciones_criatura_destino={"fuerza":-5,"inteligencia":0,"contextura":-1, "destreza":0, "carisma":0,"sabiduria":0,"xp":1,"hp":-19,"mp":}
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":5,"xp":3,"hp":0,"mp":-1}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
 
