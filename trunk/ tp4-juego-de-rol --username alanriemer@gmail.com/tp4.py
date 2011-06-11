@@ -238,4 +238,35 @@ def __init__(self):
         modificaciones_criatura_destino={"fuerza":-5,"inteligencia":0,"contextura":-1, "destreza":0, "carisma":0,"sabiduria":0,"xp":1,"hp":-19,"mp":}
         modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":5,"xp":3,"hp":0,"mp":-1}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
+class Jugador (object):
+    def __init__(self,nombre):
+        self.criaturas=[]
+        self.puntos=0
+        self.nombre=None
+        self.descripcion=None
+        self.autor=None
+    def agregar_criatura(self,criatura):
+        """agrega una criatura de la lista de criaturas del jugador.
+        precondiciones: criatura debe ser del tipo Criatura"""
+        self.criaturas.append(criatura)
+    def eliminar_criatura(self,criatura):
+        """Elimina una criatura de la lista de criaturas del jugador.
+        precondiciones: criatura debe ser del tipo Criatura y la lista de criaturas debe contener a dicha criatura"""
+        try:
+            self.criaturas.remove(self.criaturas[0])
+        except:
+            print "La criatura debe estar en la lista de criaturas"
+    def elegir_criatura(self):
+        """Metodo que devuelve la proxima criatura a utilizar en combate, o bien None si no tiene criaturas disponibles. Entendemos que la proxima criatura a utilizar en combate es la que se encuentra primera en la lista"""
+        if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
+            return None
+        return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
 
+
+class Jugador_artificial_1(object):
+    def __init__(self,nombre):
+        self.criaturas=[]
+        self.puntos=0
+        self.nombre="Goku"
+        self.descripcion="Elige una habilidad de forma aleatoria"
+        self.autor="Masello-Riemer"
