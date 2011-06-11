@@ -25,9 +25,9 @@ class Criatura(object):
                 
    def aplicar_consecuencias(self, consecuencias):
                 """Aplica consecuencias al recibir ataque o realizar ataque"""
-                for clave in self.consecuencias.keys():
-                        self.indicadores[clave]=self.indicadores[clave]+self.consecuencias[clave]
-                        self.caracteristicas[clave]=self.caracteristicas[clave]+self.caracteristicas[clave]
+                for clave in consecuencias.keys():
+                        self.indicadores[clave]=self.indicadores[clave]+consecuencias[clave]
+                        self.caracteristicas[clave]=self.caracteristicas[clave]+consecuencias[clave]
    def obtenerhabilidades(self):
                 """Metodo que devuelve diccionario con las habilidades de la criatura.
 Las claves son el nombre de la habilidad y los valores son la instancia de la clase correspondiente"""
