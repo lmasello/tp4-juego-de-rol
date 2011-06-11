@@ -22,14 +22,24 @@ class Criatura(object):
                 for clave in self.indicadores.keys():
                         estado_atributos[clave]=self.indicadores[clave]
                 return estado_atributos
-        def obtenerhabilidades(self):
-                pass
-        def aplicar_consecuencias(self, consecuencias):
+                
+   def aplicar_consecuencias(self, consecuencias):
                 """Aplica consecuencias al recibir ataque o realizar ataque"""
                 for clave in self.consecuencias.keys():
                         self.indicadores[clave]=self.indicadores[clave]+self.consecuencias[clave]
                         self.caracteristicas[clave]=self.caracteristicas[clave]+self.caracteristicas[clave]
-                        
+   def obtenerhabilidades(self):
+                """Metodo que devuelve diccionario con las habilidades de la criatura.
+Las claves son el nombre de la habilidad y los valores son la instancia de la clase correspondiente"""
+                habilidades_totales={"Big_Bang_Attack":Big_Bang_Attack(),"Psicoataque":Psicoataque(),"Chupacabras":Chupacabras(),"Golpe_martillo":Golpe_martillo(),
+                "Ataque_wachenhausen":Ataque_wachenhausen(),"Fatality":Fatality()}
+                habilidades_a_usar={}
+                cont=3
+                while cont>0:
+                        for clave in habilidades_totales.keys():
+                                habilidades_a_usar[clave]=habilidades_totales[clave]
+                                cont-=1
+                return  habilidades_a_usar
                         
 
 class Golpe_martillo(object):
