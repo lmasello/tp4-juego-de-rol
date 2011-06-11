@@ -261,6 +261,16 @@ class Jugador (object):
         if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
             return None
         return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
+   def elegir_accion(self, destino):
+                """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
+el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
+                criatura_en_batalla=self.elegir_criatura()
+                habilidades_criatura=criatura_en_batalla.obtenerhabilidades()
+                print "Sus habilidades son:", habilidades.keys()
+                habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
+                modificadores_jugadores=habilidades_criatura[habilidad_elegida]
+                criatura_en_batalla.aplicar_consecuencias(modificadores_jugadores[0])
+                destino.aplicar_consecuencias(modificadores_jugadores[1])
 
 
 class Jugador_artificial_1(object):
