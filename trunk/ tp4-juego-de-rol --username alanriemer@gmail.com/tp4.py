@@ -32,7 +32,7 @@ class Criatura(object):
                         
                         
 
-class golpe_martillo(object):
+class Golpe_martillo(object):
         """Modela la habilidad"""
         def __init__(self):
                 self.nombre="Golpe martillo"
@@ -63,7 +63,7 @@ y/o indicadores que debe tener la criatura para poder aplicar la habilidad."""
                 
 
 
-class ataque_wachenhausen(objecto):
+class Ataque_wachenhausen(objecto):
         """Modela la habilidad"""
 	def __init__(self):
                 self.nombre="Wachenhausen"
@@ -90,7 +90,7 @@ y/o indicadores que debe tener la criatura para poder aplicar la habilidad."""
                 modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":-1, "carisma":-1,"sabiduria":0,"xp":2,"hp":-35,"mp":0}
                 modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":2,"hp":0,"mp":-10}   
                 return modificaciones_criatura_origen, modificaciones_criatura_destino
-class fatality(objecto):
+class Fatality(objecto):
         """Modela la habilidad"""
 	def __init__(self):
                 self.nombre="Fatality"
@@ -174,7 +174,7 @@ def __init__(self):
         modificaciones_criatura_origen={"fuerza":0,"inteligencia":5,"contextura":0, "destreza":0, "carisma":0,"sabiduria":2,"xp":3,"hp":0,"mp":10}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
 
-class chupacabras(object):
+class Chupacabras(object):
     """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
 def __init__(self):
         """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
