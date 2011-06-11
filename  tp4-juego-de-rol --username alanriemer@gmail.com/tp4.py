@@ -13,7 +13,7 @@ class Criatura(object):
                     suma_caracteristicas+=valor
 		self.indicadores={"hp":suma_caracteristicas,"mp":self.caracteristicas["inteligencia"]+self.caracteristicas["sabiduria"],"xp":0}
                 self.nombre=None
-		self.habilidades={}
+
 	def obtener_estado(self):
                 """MÃ©todo que devuelve un diccionario con los atributos de la criatura y su estado"""
                 estado_atributos={}
