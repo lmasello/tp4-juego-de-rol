@@ -86,7 +86,32 @@ class ataque_wachenhausen(objecto):
         #Si la criatura cumple con los requisitos necesarios, se procede
                 modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":-1, "carisma":-1,"sabiduria":0,"xp":2,"hp":-35,"mp":0}
                 modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":2,"hp":0,"mp":-10}   
-                return modificaciones_criatura_origen, modificaciones_criatura_destino    
+                return modificaciones_criatura_origen, modificaciones_criatura_destino
+class fatality(objecto):
+        """Modela la habilidad"""
+	def __init__(self):
+                self.nombre="Fatality"
+                self.descripcion="Te mata"
+                self.autor="Riemer-Masello"
+        def obtenercostos(self):
+                costos={"fuerza":13,"inteligencia":16, "contextura":13, "destreza":14, "carisma":16, "sabiduria":16, "mp":40}
+		return costos
+	def obtener_consecuencias(self, origen, final):
+                """Devuelve dos diccionarios con las alteraciones a realizar sobre los atributos de la criatura origen y la criatura destino
+        precondiciones: origen y destino deben ser del tipo criatura
+        postcondiciones: devuelve dos diccionarios con valores negativos cuando se decrementan los atributos y positivos cuando se aumentan los atributos .Se devuelven diccionarios con valores 0 en caso en que la criatura de origen no tiene los atributos necesarios para realizar la habilidad"""
+                valores_minimos=self.obtener_costos()    #Diccionario con los costos para ejecutar la habilidad
+                atributos_criatura=origen.obtener_estado()          #Diccionario con los atributos de la criatura
+                modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":0,"hp":0,"mp":0}
+                mofificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":0,"hp":0,"mp":0}
+                for clave in valores_minimos.keys():
+                    if atributos_criatura.haskey(clave):
+                        if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
+                            return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
+        #Si la criatura cumple con los requisitos necesarios, se procede
+                modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":-1, "carisma":-1,"sabiduria":0,"xp":2,"hp":-80,"mp":0}
+                modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":2,"hp":0,"mp":-40}   
+                return modificaciones_criatura_origen, modificaciones_criatura_destino
                 
 class Big_Bang_Attack(object):
     """Modela la habilidad. Tiene los metodos __init__, obtener_costos, y obtener_consecuencias"""
