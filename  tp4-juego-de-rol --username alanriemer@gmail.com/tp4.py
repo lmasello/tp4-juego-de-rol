@@ -1,4 +1,3 @@
-
 import random
 class Criatura(object):
 	"""Objeto donde se encuentran los atributos y habilidades de las criaturas"""
@@ -40,6 +39,8 @@ class golpe_martillo(object):
                 self.descripcion="Golpe de puño ágil y poderoso"
                 self.autor="Riemer - Masello"
         def obtener_costos(self):
+                """Devuelve un diccionario con los valores mnimos de caractersticas
+y/o indicadores que debe tener la criatura para poder aplicar la habilidad."""
                 costos={"fuerza":14,"inteligencia":4, "contextura":13, "destreza":12, "carisma":4, "sabiduria":3}
                 return costos
 
@@ -69,6 +70,8 @@ class ataque_wachenhausen(objecto):
                 self.descripcion="Te quema la cabeza"
                 self.autor="Riemer-Masello"
         def obtenercostos(self):
+                """Devuelve un diccionario con los valores mnimos de caractersticas
+y/o indicadores que debe tener la criatura para poder aplicar la habilidad."""
                 costos={"fuerza":4,"inteligencia":16, "contextura":5, "destreza":14, "carisma":16, "sabiduria":16, "mp":10}
 		return costos
 	def obtener_consecuencias(self, origen, final):
@@ -94,6 +97,8 @@ class fatality(objecto):
                 self.descripcion="Te mata"
                 self.autor="Riemer-Masello"
         def obtenercostos(self):
+                """Devuelve un diccionario con los valores mnimos de caractersticas
+y/o indicadores que debe tener la criatura para poder aplicar la habilidad."""
                 costos={"fuerza":13,"inteligencia":16, "contextura":13, "destreza":14, "carisma":16, "sabiduria":16, "mp":40}
 		return costos
 	def obtener_consecuencias(self, origen, final):
