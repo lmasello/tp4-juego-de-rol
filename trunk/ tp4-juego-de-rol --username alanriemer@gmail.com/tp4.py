@@ -1,4 +1,4 @@
-<<<<<<< .mine
+
 import random
 class Criatura(object):
 	"""Objeto donde se encuentran los atributos y habilidades de las criaturas"""
@@ -16,7 +16,7 @@ class Criatura(object):
                 self.nombre=None
 		self.habilidades={}
 	def obtener_estado(self):
-                """Método que devuelve un diccionario con los atributos de la criatura y su estado"""
+                """MÃ©todo que devuelve un diccionario con los atributos de la criatura y su estado"""
                 estado_atributos={}
                 for clave in self.caracteristicas.keys():
                         estado_atributos[clave]=self.caracteristicas[clave]
@@ -37,7 +37,7 @@ class golpe_martillo(object):
         """Modela la habilidad"""
         def __init__(self):
                 self.nombre="Golpe martillo"
-                self.descripcion="Golpe de pu�o �gil y poderoso"
+                self.descripcion="Golpe de puño ágil y poderoso"
                 self.autor="Riemer - Masello"
         def obtener_costos(self):
                 costos={"fuerza":14,"inteligencia":4, "contextura":13, "destreza":12, "carisma":4, "sabiduria":3}
@@ -93,7 +93,7 @@ class Big_Bang_Attack(object):
     def __init__(self):
         """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
         self.nombre="Big Bang Attack"
-        self.descripcion="El ataque Big Bang es un enorme rayo de energia con un increible poder de destrucción. La criatura extiende su mano hacia el enemigo y lanza el rayo"
+        self.descripcion="El ataque Big Bang es un enorme rayo de energia con un increible poder de destrucciÃ³n. La criatura extiende su mano hacia el enemigo y lanza el rayo"
         self.autor="Masello-Riemer"
     def obtener_costos(self):
         """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad"""
@@ -116,4 +116,59 @@ class Big_Bang_Attack(object):
         modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":2,"hp":0,"mp":-10}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
 
+class Psicoataque(object):
+    """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
+def __init__(self):
+        """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
+        self.nombre="Psicoataque"
+        self.descripcion="El psicoataque es un ataque que utiliza la fuerza del oponente y la utiliza para causarle daños psicologicos. Este ataque lo podran utilizar aquellas criaturas que posean un elevado grado de inteligencia"
+        self.autor="Masello-Riemer"
+    def obtener_costos(self):
+        """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad"""
+        valores_minimos={"inteligencia":6,"sabiduria":6,"xp":4,"mp":14}
+        return valores_minimos
+    def obtener_consecuencias(self,origen,destino):
+        """Devuelve dos diccionarios con las alteraciones a realizar sobre los atributos de la criatura origen y la criatura destino
+        precondiciones: origen y destino deben ser del tipo criatura
+        postcondiciones: devuelve dos diccionarios.Se devuelven diccionarios con valores 0 en caso en que la criatura de origen no tiene los atributos necesarios para realizar la habilidad"""
+        valores_minimos=self.obtener_costos()    #Diccionario con los costos para ejecutar la habilidad
+        atributos_criatura=origen.obtener_estado()          #Diccionario con los atributos de la criatura
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":0,"hp":0,"mp":0}
+        mofificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":0,"hp":0,"mp":0}
+        for clave in valores_minimos.keys():
+            if atributos_criatura.haskey(clave):
+                if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
+                    return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
+        #Si la criatura cumple con los requisitos necesarios, se procede
+        modificaciones_criatura_destino={"fuerza":0,"inteligencia":-2,"contextura":-1, "destreza":-1, "carisma":-1,"sabiduria":-2,"xp":1,"hp":-15,"mp":-2}
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":5,"contextura":0, "destreza":0, "carisma":0,"sabiduria":2,"xp":3,"hp":0,"mp":10}   
+        return modificaciones_criatura_origen, modificaciones_criatura_destino
+
+class chupacabras(object):
+    """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
+def __init__(self):
+        """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
+        self.nombre="chupacabras"
+        self.descripcion="En este ataque la criatura utiliza un metodo de seduccion otorgado por Afrodita (diosa griega) para seducir al oponente y asi lograr paralizarlo. Al paralizar a su oponente procede a chuparle parte de su vida, transfiriendola a su propio cuerpo"
+        self.autor="Masello-Riemer"
+    def obtener_costos(self):
+        """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad"""
+        valores_minimos={"destreza":5,"carisma":6,"xp":2,"mp":7}
+        return valores_minimos
+    def obtener_consecuencias(self,origen,destino):
+        """Devuelve dos diccionarios con las alteraciones a realizar sobre los atributos de la criatura origen y la criatura destino
+        precondiciones: origen y destino deben ser del tipo criatura
+        postcondiciones: devuelve dos diccionarios.Se devuelven diccionarios con valores 0 en caso en que la criatura de origen no tiene los atributos necesarios para realizar la habilidad"""
+        valores_minimos=self.obtener_costos()    #Diccionario con los costos para ejecutar la habilidad
+        atributos_criatura=origen.obtener_estado()          #Diccionario con los atributos de la criatura
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":0,"hp":0,"mp":0}
+        mofificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":0,"hp":0,"mp":0}
+        for clave in valores_minimos.keys():
+            if atributos_criatura.haskey(clave):
+                if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
+                    return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
+        #Si la criatura cumple con los requisitos necesarios, se procede
+        modificaciones_criatura_destino={"fuerza":-1,"inteligencia":0,"contextura":-1, "destreza":0, "carisma":0,"sabiduria":0,"xp":1,"hp":-15,"mp":}
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":1, "destreza":3, "carisma":5,"sabiduria":2,"xp":3,"hp":15,"mp":2}   
+        return modificaciones_criatura_origen, modificaciones_criatura_destino
 
