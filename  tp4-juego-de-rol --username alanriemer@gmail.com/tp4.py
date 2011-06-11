@@ -48,7 +48,7 @@ class Big_Bang_Attack(object):
                 if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
                     return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
         #Si la criatura cumple con los requisitos necesarios, se procede
-        modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":1,"hp":-25,"mp":0}
-        modificaciones_criatura_origen={"fuerza":-7,"inteligencia":0,"contextura":-6, "destreza":-5, "carisma":0,"sabiduria":0,"xp":2,"hp":0,"mp":-10}   
+        modificaciones_criatura_destino={"fuerza"-1,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":1,"hp":-25,"mp":0}
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":3,"hp":0,"mp":-10}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
 
