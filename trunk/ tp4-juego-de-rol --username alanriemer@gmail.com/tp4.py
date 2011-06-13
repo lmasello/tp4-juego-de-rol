@@ -247,10 +247,21 @@ class Jugador (object):
         self.autor=None
     def agregar_criatura(self,criatura):
         """agrega una criatura de la lista de criaturas del jugador.
-        precondiciones: criatura debe ser del tipo Criatura"""
-        nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
-        criatura.nombre=nombre_criatura
-        self.criaturas.append(criatura)
+        precondiciones: criatura debe ser del tipo Criatura y el nombre de dicha criatura no lo debe poseer ninguna otra"""
+        if self.criaturas==[]:  #Caso en que sea la primera criatura que se agrega.
+            nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
+            criatura.nombre=nombre_criatura
+            self.criaturas.append(criatura)
+        else:
+            nombres_criaturas=[]
+            for criatura in self.criaturas:        #Se itera en las criaturas del jugador, para obtener los nombres de aquellas y asi verificar que el jugador no ingresa un nombre que posea otra criatura
+                nombres_criaturas.append(criatura.nombre)
+            nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
+            while nombre_criatura in nombres_criaturas:
+                print "Ya posee una criatura con ese nombre"
+                nombre_criatura=raw_input("Ingrese nuevamente el nombre de su criatura:")
+            criatura.nombre=nombre_criatura
+            self.criaturas.append(criatura)   
     def eliminar_criatura(self,criatura):
         """Elimina una criatura de la lista de criaturas del jugador.
         precondiciones: criatura debe ser del tipo Criatura y la lista de criaturas debe contener a dicha criatura"""
@@ -259,11 +270,23 @@ class Jugador (object):
         except:
             print "La criatura debe estar en la lista de criaturas"
     def elegir_criatura(self):
-        """Metodo que devuelve la proxima criatura a utilizar en combate, o bien None si no tiene criaturas disponibles."""
+        """Metodo que devuelve la proxima criatura a utilizar en combate, o bien None si no tiene criaturas disponibles. Se le pregunta al usuario que criatura desea utilizar"""
         if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
             return None
-        return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
-   def elegir_accion(self, destino):
+        nombres_criaturas=[]
+        for criatura in self.criaturas:        #Se itera en las criaturas del jugador, para obtener los nombres de aquellas y asi verificar si el nombre de la criatura que ingresa el usuario es de alguna criatura
+            nombres_criaturas.append(criatura.nombre)
+        print nombres_criaturas
+        criatura_elegida=raw_input("Que criatura desea elegir para el combate?:")
+        while criatura_elegida not in nombres_criaturas:     #Caso en que el usuario ingresa incorrectamente la criatura
+            print "El nombre de la criatura ingresada no se encuentra en su lista de criaturas"
+            print "Usted posee la/s siguiente/s criaturas:",nombres_criaturas
+            criatura_elegida=raw_input("Que criatura desea elegir para el combate?:")
+        #Para devolver el objeto criatura elegida, se itera con las criaturas de la lista de las criaturas. Y se devuelve la que coincida con el nombre
+        for criatura in self.criaturas:
+            if criatura.nombre==criatura_elegida:
+                return criatura      #Devuelve la criatura que posee el nombre indicado
+    def elegir_accion(self, destino):
                 """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
 el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
                 criatura_en_batalla=self.elegir_criatura()
