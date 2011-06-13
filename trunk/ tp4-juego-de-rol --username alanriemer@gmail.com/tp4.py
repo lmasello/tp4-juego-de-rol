@@ -248,6 +248,8 @@ class Jugador (object):
     def agregar_criatura(self,criatura):
         """agrega una criatura de la lista de criaturas del jugador.
         precondiciones: criatura debe ser del tipo Criatura"""
+        nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
+        criatura.nombre=nombre_criatura
         self.criaturas.append(criatura)
     def eliminar_criatura(self,criatura):
         """Elimina una criatura de la lista de criaturas del jugador.
@@ -257,7 +259,7 @@ class Jugador (object):
         except:
             print "La criatura debe estar en la lista de criaturas"
     def elegir_criatura(self):
-        """Metodo que devuelve la proxima criatura a utilizar en combate, o bien None si no tiene criaturas disponibles. Entendemos que la proxima criatura a utilizar en combate es la que se encuentra primera en la lista"""
+        """Metodo que devuelve la proxima criatura a utilizar en combate, o bien None si no tiene criaturas disponibles."""
         if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
             return None
         return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
@@ -280,3 +282,28 @@ class Jugador_artificial_1(object):
         self.nombre="Goku"
         self.descripcion="Elige una habilidad de forma aleatoria"
         self.autor="Masello-Riemer"
+    def agregar_criatura(self,criatura):       #Al no ser humano no le asigna nombre a la criatura
+        """agrega una criatura de la lista de criaturas del jugador.
+        precondiciones: criatura debe ser del tipo Criatura"""
+        self.criaturas.append(criatura)
+    def eliminar_criatura(self,criatura):
+        """Elimina una criatura de la lista de criaturas del jugador. Entendemos que la criatura a eliminar es la primera que se encuentra en la lista, ya que, al no tener posibilidades de elegirla, utiliza siempre la primera criatura de su lista de criaturas
+        precondiciones: criatura debe ser del tipo Criatura y la lista de criaturas debe contener a dicha criatura"""
+        try:
+            self.criaturas.remove(self.criaturas[0])
+        except:
+            print "La criatura debe estar en la lista de criaturas"
+    def elegir_criatura(self):
+        """Metodo que devuelve la proxima criatura a utilizar en combate. Al no ser humano y no tener chances de elegirla se devolvera la primera criatura de su lista de criaturas, o bien None si no tiene criaturas disponibles. Entendemos que la proxima criatura a utilizar en combate es la que se encuentra primera en la lista"""
+        if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
+            return None
+        return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
+   def elegir_accion(self, destino):
+                """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad."""
+                criatura_en_batalla=self.elegir_criatura()
+                habilidades_criatura=criatura_en_batalla.obtenerhabilidades()
+                print "Sus habilidades son:", habilidades.keys()
+                habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
+                modificadores_jugadores=habilidades_criatura[habilidad_elegida]
+                criatura_en_batalla.aplicar_consecuencias(modificadores_jugadores[0])
+                destino.aplicar_consecuencias(modificadores_jugadores[1])
