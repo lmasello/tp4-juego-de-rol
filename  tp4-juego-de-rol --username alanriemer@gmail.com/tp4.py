@@ -255,7 +255,7 @@ class Jugador (object):
         """Elimina una criatura de la lista de criaturas del jugador.
         precondiciones: criatura debe ser del tipo Criatura y la lista de criaturas debe contener a dicha criatura"""
         try:
-            self.criaturas.remove(self.criaturas[0])
+            self.criaturas.remove(criatura)
         except:
             print "La criatura debe estar en la lista de criaturas"
     def elegir_criatura(self):
