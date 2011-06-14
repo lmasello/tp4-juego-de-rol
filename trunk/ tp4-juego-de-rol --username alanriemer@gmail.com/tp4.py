@@ -360,19 +360,19 @@ class Jugador_artificial_1(object):
         self.criaturas=[]
         self.puntos=0
         self.nombre="Vegueta"
-        self.descripcion="Jugador que elige una habilidad de forma aleatoria"
+        self.descripcion="Vegueta es un jugador que elige las habilidades de forma aleatoria"
         self.autor="Masello-Riemer"
     def agregar_criatura(self,criatura):       #Al no ser humano no le asigna nombre a la criatura
         """agrega una criatura de la lista de criaturas del jugador.
         precondiciones: criatura debe ser del tipo Criatura"""
         self.criaturas.append(criatura)
     def eliminar_criatura(self,criatura):
-        """Elimina una criatura de la lista de criaturas del jugador. Entendemos que la criatura a eliminar es la primera que se encuentra en la lista, ya que, al no tener posibilidades de elegirla, utiliza siempre la primera criatura de su lista de criaturas
+        """Elimina una criatura de la lista de criaturas del jugador. 
         precondiciones: criatura debe ser del tipo Criatura y la lista de criaturas debe contener a dicha criatura"""
         try:
-            self.criaturas.remove(self.criaturas[0])
+            self.criaturas.remove(criatura)
         except:
-            print "La criatura debe estar en la lista de criaturas"
+            raise ValueError("La criatura debe estar en la lista de criaturas")
     def elegir_criatura(self):
         """Metodo que devuelve la proxima criatura a utilizar en combate. Al no ser humano y no tener chances de elegirla se devolvera la primera criatura de su lista de criaturas, o bien None si no tiene criaturas disponibles. Entendemos que la proxima criatura a utilizar en combate es la que se encuentra primera en la lista"""
         if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
@@ -381,16 +381,22 @@ class Jugador_artificial_1(object):
    def elegir_accion(self,origen, destino):
         """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
 el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
-		  habilidades_criatura=origen.obtenerhabilidades()
-        print "Le toco pelear contra:", destino.nombre
-        print "Su monstruo es:", origen.nombre
-        print "Sus habilidades son:", habilidades_criatura.keys()
-        habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
-        
-        while habilidad_elegida not in habilidades_criatura.key():
-			     print "Sus habilidades son:", habilidades_criatura.keys()
-			     habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
-        return habilidad_elegida, destino
+        habilidades_criatura=origen.obtenerhabilidades()     
+        lista_habilidades=habilidades_criatura.keys()
+        numero_aleatorio=random.randrange(0,len(lista_habilidades))    #Se guarda en una variable un numero de rango (0 a long de la lista de habilidades)
+        #Para la opcion huir
+        indicadores_de_criatura=origen.indicadores
+        try:
+            valor_hp=indicadores_de_criatura["hp"]
+            #Si la vida es menor a 15 y el numero que sale de tirar los dados es 1 o 2, podra escapar
+            tirar_dados=random.randrange(1,7)
+            if valor_hp<=15 and tirar_dados==1 or valor_hp<=15 and tirar_dados==0:
+                return "huir", destino      #Verificar lo que devuelve, si es que devuelve "huir" o podria devolver None
+            return habilidades_criatura[lista_habilidades[numero_aleatorio]], destino     # Devuelve dos objetos: uno de tipo habilidad y otro de tipo Criatura
+        except:
+            print "Hay error en el diccionario de la criatura"
+            
+
                   
 class Jugador_artificial_2(object):
     def __init__(self):
