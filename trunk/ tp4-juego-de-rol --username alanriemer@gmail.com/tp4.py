@@ -421,6 +421,29 @@ class Jugador_artificial_2(object):
         if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
             return None
         return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
-    def elegir_accion(self,origen,destino):
+   def elegir_accion(self,origen, destino):
+        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
+el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
+        habilidades_criatura=origen.obtenerhabilidades() #Diccionario con habilidades de criatura origen
+        posibles_habilidades=habilidades_criatura.keys() #Lista con nombres de habilidades a usar
+        habilidad_elegida=None
+        indicadores_enemigo=destino.indicadores #Indicadores variables del enemigo
+        estado_criatura=origen.obtener_estado() #Diccionario con atributos e indicadores de origen
+        for x in habilidades_criatura.values(): #Itera sobre los objetos habilidades del diccionario
+            costos=x.obtener_costos() #Costos de la habilidad
+            for clave in costos: #Itera sobre las claves de los costos que son atributos e indicadores mínimos
+                 if estado_criatura[clave]<costos[clave]: #Verifica que tenga lo requerido para usar dicha habilidad
+                      posibles_habilidades.remove(x.nombre) #Si no alcanza ese atributo, borra esa opción
+        diccionario_habilidades_hp={} #Diccionario que tiene como claves el hp que quita y como valor nombres filtrados de habilidad
+        for i in posibles_habilidades: #Itera sobre el nombre de las habilidades filtradas
+            objeto_habilidad=habilidades_criatura[i] #Busca la instancia de dicha habilidad
+            (modificaciones_criatura_origen, modificaciones_criatura_destino)=objeto_habilidad.obtener_consecuencias()
+            hp_absoluto=abs(modificaciones_criatura_destino["hp"]) #Valor en absoluto del HP que quita dicha habilidad
+            diccionario_habilidades_hp[hp_absoluto]=i #Guarda el HP que quita como clave y como valor el nombre de habilidad
+      	lista_hp=diccionario_habilidades_hp.keys() #Lista con valores de HP que quitan las habilidades
+      	lista_hp.sort() #Ordena de menor a mayor
+      	mayor_hp=lista_hp[len(lista_hp)] #Guardo el mayor HP
+      	habilidad_elegida=diccionario_habilidades_hp[mayor_hp]
+        return habilidad_elegida, destino
 
                 
