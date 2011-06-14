@@ -467,30 +467,37 @@ class Jugador_artificial_2(object):
    def elegir_accion(self,origen, destino):
         """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
 el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
-        valor_hp=indicadores_de_criatura["hp"]
+        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
+el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
+        estado_criatura=origen.obtener_estado() #Diccionario con atributos e indicadores de origen
+        hp_origen=estado_criatura["hp"]
             #Si la vida es menor a 15 le permite huir
-        if valor_hp<15:
-          return "huir", destino      #Verificar lo que devuelve, si es que devuelve "huir" o podria devolver None
+        if hp_origen<5:
+          return "huir", origen      #Verificar lo que devuelve, si es que devuelve "huir" o podria devolver None
+        
         habilidades_criatura=origen.obtenerhabilidades() #Diccionario con habilidades de criatura origen
         posibles_habilidades=habilidades_criatura.keys() #Lista con nombres de habilidades a usar
-        habilidad_elegida=None
-        indicadores_enemigo=destino.indicadores #Indicadores variables del enemigo
         estado_criatura=origen.obtener_estado() #Diccionario con atributos e indicadores de origen
+        
         for x in habilidades_criatura.values(): #Itera sobre los objetos habilidades del diccionario
             costos=x.obtener_costos() #Costos de la habilidad
             for clave in costos: #Itera sobre las claves de los costos que son atributos e indicadores mínimos
                  if estado_criatura[clave]<costos[clave]: #Verifica que tenga lo requerido para usar dicha habilidad
                       posibles_habilidades.remove(x.nombre) #Si no alcanza ese atributo, borra esa opción
+	
         diccionario_habilidades_hp={} #Diccionario que tiene como claves el hp que quita y como valor nombres filtrados de habilidad
         for i in posibles_habilidades: #Itera sobre el nombre de las habilidades filtradas
             objeto_habilidad=habilidades_criatura[i] #Busca la instancia de dicha habilidad
             (modificaciones_criatura_origen, modificaciones_criatura_destino)=objeto_habilidad.obtener_consecuencias()
+            if hp_origen<10: #Si tiene poca vida
+              if modificador_criatura_origen["hp"]>0: #Si dicha habilidad disponible le otorga vida, la elige
+                return i, destino
             hp_absoluto=abs(modificaciones_criatura_destino["hp"]) #Valor en absoluto del HP que quita dicha habilidad
-            diccionario_habilidades_hp[hp_absoluto]=i #Guarda el HP que quita como clave y como valor el nombre de habilidad
-      	lista_hp=diccionario_habilidades_hp.keys() #Lista con valores de HP que quitan las habilidades
-      	lista_hp.sort() #Ordena de menor a mayor
-      	mayor_hp=lista_hp[len(lista_hp)] #Guardo el mayor HP
-      	habilidad_elegida=diccionario_habilidades_hp[mayor_hp]
+            diccionario_habilidades_hp[hp_absoluto]=i #Guarda el HP que quita, como clave, y como valor el nombre de habilidad
+        lista_hp=diccionario_habilidades_hp.keys() #Lista con valores de HP que quitan las habilidades
+        lista_hp.sort() #Ordena de menor a mayor
+        mayor_hp=lista_hp[len(lista_hp)-1] #Guardo el mayor HP
+        habilidad_elegida=diccionario_habilidades_hp[mayor_hp]
         return habilidad_elegida, destino
 
                 
