@@ -341,16 +341,18 @@ class Jugador (object):
         for criatura in self.criaturas:
             if criatura.nombre==criatura_elegida:
                 return criatura      #Devuelve la criatura que posee el nombre indicado
-    def elegir_accion(self, destino):
-                """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
-el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
-                criatura_en_batalla=self.elegir_criatura()
-                habilidades_criatura=criatura_en_batalla.obtenerhabilidades()
-                print "Sus habilidades son:", habilidades.keys()
-                habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
-                modificadores_jugadores=habilidades_criatura[habilidad_elegida]
-                criatura_en_batalla.aplicar_consecuencias(modificadores_jugadores[0])
-                destino.aplicar_consecuencias(modificadores_jugadores[1])
+    def elegir_accion(self,origen, destino):
+        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad."""
+		  habilidades_criatura=origen.obtenerhabilidades()
+        print "Le toco pelear contra:", destino.nombre
+        print "Su monstruo es:", origen.nombre
+        print "Sus habilidades son:", habilidades_criatura.keys()
+        habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
+        
+        while habilidad_elegida not in habilidades_criatura.key():
+			     print "Sus habilidades son:", habilidades_criatura.keys()
+			     habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
+        return habilidad_elegida, destino
 
 
 class Jugador_artificial_1(object):
@@ -380,14 +382,15 @@ class Jugador_artificial_1(object):
         """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
 el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
 		  habilidades_criatura=origen.obtenerhabilidades()
+        print "Le toco pelear contra:", destino.nombre
+        print "Su monstruo es:", origen.nombre
         print "Sus habilidades son:", habilidades_criatura.keys()
         habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
+        
         while habilidad_elegida not in habilidades_criatura.key():
 			     print "Sus habilidades son:", habilidades_criatura.keys()
 			     habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
-        modificadores_jugadores=habilidades_criatura[habilidad_elegida]
-        origen.aplicar_consecuencias(modificadores_jugadores[0]) #MOdifica los indicadores y atributos de la criatura del jugador
-        destino.aplicar_consecuencias(modificadores_jugadores[1]) #Modifica los indicadores y atributos del enemigo
+        return habilidad_elegida, destino
                   
 class Jugador_artificial_2(object):
     def __init__(self):
