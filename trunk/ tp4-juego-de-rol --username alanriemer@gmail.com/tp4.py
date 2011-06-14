@@ -467,14 +467,8 @@ class Jugador_artificial_2(object):
    def elegir_accion(self,origen, destino):
         """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
 el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
-        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
-el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
         estado_criatura=origen.obtener_estado() #Diccionario con atributos e indicadores de origen
         hp_origen=estado_criatura["hp"]
-            #Si la vida es menor a 15 le permite huir
-        if hp_origen<5:
-          return "huir", origen      #Verificar lo que devuelve, si es que devuelve "huir" o podria devolver None
-        
         habilidades_criatura=origen.obtenerhabilidades() #Diccionario con habilidades de criatura origen
         posibles_habilidades=habilidades_criatura.keys() #Lista con nombres de habilidades a usar
         estado_criatura=origen.obtener_estado() #Diccionario con atributos e indicadores de origen
@@ -489,11 +483,14 @@ el usuario para decidirlo, en el caso de ser un jugador artificial, evalua progr
         for i in posibles_habilidades: #Itera sobre el nombre de las habilidades filtradas
             objeto_habilidad=habilidades_criatura[i] #Busca la instancia de dicha habilidad
             (modificaciones_criatura_origen, modificaciones_criatura_destino)=objeto_habilidad.obtener_consecuencias()
-            if hp_origen<10: #Si tiene poca vida
+            if hp_origen<15: #Si tiene poca vida
               if modificador_criatura_origen["hp"]>0: #Si dicha habilidad disponible le otorga vida, la elige
                 return i, destino
             hp_absoluto=abs(modificaciones_criatura_destino["hp"]) #Valor en absoluto del HP que quita dicha habilidad
             diccionario_habilidades_hp[hp_absoluto]=i #Guarda el HP que quita, como clave, y como valor el nombre de habilidad
+            
+        if hp_origen<15:#Si la vida es menor a 15 le permite huir
+          return "huir", origen      #Verificar lo que devuelve, si es que devuelve "huir" o podria devolver None
         lista_hp=diccionario_habilidades_hp.keys() #Lista con valores de HP que quitan las habilidades
         lista_hp.sort() #Ordena de menor a mayor
         mayor_hp=lista_hp[len(lista_hp)-1] #Guardo el mayor HP
