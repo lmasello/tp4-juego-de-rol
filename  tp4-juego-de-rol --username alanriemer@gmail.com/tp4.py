@@ -337,7 +337,9 @@ def __init__(self):
           raise ValueError ("origen y destino deben ser del tipo Criatura")
 
 class Jugador (object):
+    """Modela a jugador humano. Tiene los metodos: __init__, agregar_criatura, eliminar_criatura, elegir_criatura"""
     def __init__(self):
+        """Metodo constructor de la clase. Contiene una lista con las criaturas que poseee el jugador, los puntos del jugador(que aumentaran cada vez que el jugador gane una batalla)y el nombre, descripcion y autor del jugador"""
         self.criaturas=[]
         self.puntos=0
         self.nombre=None
@@ -346,29 +348,38 @@ class Jugador (object):
     def agregar_criatura(self,criatura):
         """agrega una criatura de la lista de criaturas del jugador.
         precondiciones: criatura debe ser del tipo Criatura y el nombre de dicha criatura no lo debe poseer ninguna otra"""
-        if self.criaturas==[]:  #Caso en que sea la primera criatura que se agrega.
-            nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
-            criatura.nombre=nombre_criatura
-            self.criaturas.append(criatura)
+        if isinstance (criatura,Criatura):
+          if self.criaturas==[]:  #Caso en que sea la primera criatura que se agrega.
+              nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
+              criatura.nombre=nombre_criatura
+              self.criaturas.append(criatura)
+          else:
+              nombres_criaturas=[]
+              for criatura in self.criaturas:        #Se itera en las criaturas del jugador, para obtener los nombres de aquellas y asi verificar que el jugador no ingresa un nombre que posea otra criatura
+                  nombres_criaturas.append(criatura.nombre)
+              nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
+              while nombre_criatura in nombres_criaturas:
+                  print "Ya posee una criatura con ese nombre"
+                  nombre_criatura=raw_input("Ingrese nuevamente el nombre de su criatura:")
+              criatura.nombre=nombre_criatura
+              self.criaturas.append(criatura)   
         else:
-            nombres_criaturas=[]
-            for criatura in self.criaturas:        #Se itera en las criaturas del jugador, para obtener los nombres de aquellas y asi verificar que el jugador no ingresa un nombre que posea otra criatura
-                nombres_criaturas.append(criatura.nombre)
-            nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
-            while nombre_criatura in nombres_criaturas:
-                print "Ya posee una criatura con ese nombre"
-                nombre_criatura=raw_input("Ingrese nuevamente el nombre de su criatura:")
-            criatura.nombre=nombre_criatura
-            self.criaturas.append(criatura)   
+            raise ValueError ("criatura debe ser del tipo Criatura")
     def eliminar_criatura(self,criatura):
         """Elimina una criatura de la lista de criaturas del jugador.
         precondiciones: criatura debe ser del tipo Criatura y la lista de criaturas debe contener a dicha criatura"""
         try:
-            self.criaturas.remove(criatura)
+            if isinstace (criatura,Criatura):
+                self.criaturas.remove(criatura)
+            else:
+                raise ValueError ("criatura debe ser del tipo Criatura")
+        except ValueError:
+          print "criatura debe ser del tipo criatura"        
         except:
             print "La criatura debe estar en la lista de criaturas"
     def elegir_criatura(self):
-        """Metodo que devuelve la proxima criatura a utilizar en combate, o bien None si no tiene criaturas disponibles. Se le pregunta al usuario que criatura desea utilizar"""
+        """Metodo que devuelve la proxima criatura a utilizar en combate, o bien None si no tiene criaturas disponibles. Se le pregunta al usuario que criatura desea utilizar.
+         postcondiciones: Devuelve la criatura a utilizar obien None si no tiene criaturas"""
         if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
             return None
         nombres_criaturas=[]
@@ -385,18 +396,21 @@ class Jugador (object):
             if criatura.nombre==criatura_elegida:
                 return criatura      #Devuelve la criatura que posee el nombre indicado
     def elegir_accion(self,origen, destino):
-        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad."""
-		  habilidades_criatura=origen.obtenerhabilidades()
-        print "Le toco pelear contra:", destino.nombre
-        print "Su monstruo es:", origen.nombre
-        print "Sus habilidades son:", habilidades_criatura.keys()
-        habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
-        
-        while habilidad_elegida not in habilidades_criatura:
-			     print "Sus habilidades son:", habilidades_criatura.keys()
-			     habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
-        return habilidad_elegida, destino
-
+        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad.
+        precondiciones: origen y detino deben ser del tipo Criatura
+        postcondiciones: La habilidad que devuelve debe ser objeto o bien None, si es que la criatura logra huir. El destino que devuelve es del tipo Criatura"""
+        if isinstance (origen, Criatura) and isinstance(destino,Criatura)
+          habilidades_criatura=origen.obtenerhabilidades()
+          print "Le toco pelear contra:", destino.nombre
+          print "Su monstruo es:", origen.nombre
+          print "Sus habilidades son:", habilidades_criatura.keys()
+          habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
+          while habilidad_elegida not in habilidades_criatura:
+                print "Sus habilidades son:", habilidades_criatura.keys()
+                habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
+          return habilidad_elegida, destino
+        else:
+            raise ValueError("origeny destino deben ser del tipo Criatura")
 
 class Jugador_artificial_1(object):
     def __init__(self):
