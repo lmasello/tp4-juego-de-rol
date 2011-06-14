@@ -67,8 +67,8 @@ y/o indicadores que debe tener la criatura para poder aplicar la habilidad."""
                         if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
                                 return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
         #Si la criatura cumple con los requisitos necesarios, se procede
-                modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":-1, "carisma":-1,"sabiduria":0,"xp":3,"hp":-20,"mp":0}
-                modificaciones_criatura_origen={"fuerza":1,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":5,"hp":0,"mp":-10}   
+                modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":-1, "carisma":0,"sabiduria":0,"xp":3,"hp":-30,"mp":0}
+                modificaciones_criatura_origen={"fuerza":1,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":5,"hp":0,"mp":0}   
                 return modificaciones_criatura_origen, modificaciones_criatura_destino
                 
 
@@ -97,8 +97,8 @@ y/o indicadores que debe tener la criatura para poder aplicar la habilidad."""
                         if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
                             return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
         #Si la criatura cumple con los requisitos necesarios, se procede
-                modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":-1, "carisma":-1,"sabiduria":0,"xp":2,"hp":-35,"mp":0}
-                modificaciones_criatura_origen={"fuerza":0,"inteligencia":6,"contextura":0, "destreza":0, "carisma":0,"sabiduria":3,"xp":2,"hp":0,"mp":10}   
+                modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":0, "carisma":-1,"sabiduria":0,"xp":2,"hp":-25,"mp":0}
+                modificaciones_criatura_origen={"fuerza":0,"inteligencia":6,"contextura":0, "destreza":0, "carisma":0,"sabiduria":3,"xp":4,"hp":0,"mp":10}   
                 return modificaciones_criatura_origen, modificaciones_criatura_destino
 class Fatality(objecto):
         """Modela la habilidad"""
@@ -125,7 +125,7 @@ y/o indicadores que debe tener la criatura para poder aplicar la habilidad."""
                             return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
         #Si la criatura cumple con los requisitos necesarios, se procede
                 modificaciones_criatura_destino={"fuerza":-6,"inteligencia":-6,"contextura":-6, "destreza":-6, "carisma":-6,"sabiduria":-6,"xp":2,"hp":-80,"mp":0}
-                modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":6,"hp":0,"mp":-40}   
+                modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":16,"hp":0,"mp":-40}   
                 return modificaciones_criatura_origen, modificaciones_criatura_destino
                 
 class Big_Bang_Attack(object):
@@ -137,7 +137,7 @@ class Big_Bang_Attack(object):
         self.autor="Masello-Riemer"
     def obtener_costos(self):
         """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad"""
-        valores_minimos={"fuerza":7,"contextura":6,"destreza":5,"xp":4}
+        valores_minimos={"fuerza":7,"contextura":6,"destreza":5,"xp":8}
         return valores_minimos
     def obtener_consecuencias(self,origen,destino):
         """Devuelve dos diccionarios con las alteraciones a realizar sobre los atributos de la criatura origen y la criatura destino
@@ -152,8 +152,8 @@ class Big_Bang_Attack(object):
                 if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
                     return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
         #Si la criatura cumple con los requisitos necesarios, se procede
-        modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":-1, "carisma":-1,"sabiduria":0,"xp":1,"hp":-25,"mp":0}
-        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":2,"hp":0,"mp":-2}   
+        modificaciones_criatura_destino={"fuerza":0,"inteligencia":0,"contextura":-1, "destreza":-1, "carisma":0,"sabiduria":0,"xp":2,"hp":-25,"mp":0}
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0,"xp":4,"hp":0,"mp":-2}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
 
 class Psicoataque(object):
@@ -165,7 +165,7 @@ def __init__(self):
         self.autor="Masello-Riemer"
     def obtener_costos(self):
         """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad"""
-        valores_minimos={"inteligencia":6,"sabiduria":6,"xp":4,"mp":14}
+        valores_minimos={"inteligencia":6,"sabiduria":6,"xp":9,"mp":8}
         return valores_minimos
     def obtener_consecuencias(self,origen,destino):
         """Devuelve dos diccionarios con las alteraciones a realizar sobre los atributos de la criatura origen y la criatura destino
@@ -180,8 +180,8 @@ def __init__(self):
                 if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
                     return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
         #Si la criatura cumple con los requisitos necesarios, se procede
-        modificaciones_criatura_destino={"fuerza":0,"inteligencia":-2,"contextura":-1, "destreza":-1, "carisma":-1,"sabiduria":-2,"xp":1,"hp":-15,"mp":-2}
-        modificaciones_criatura_origen={"fuerza":0,"inteligencia":5,"contextura":0, "destreza":0, "carisma":0,"sabiduria":2,"xp":3,"hp":0,"mp":10}   
+        modificaciones_criatura_destino={"fuerza":0,"inteligencia":-2,"contextura":0, "destreza":0, "carisma":0,"sabiduria":-2,"xp":2,"hp":-20,"mp":-2}
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":5,"contextura":0, "destreza":0, "carisma":0,"sabiduria":2,"xp":4,"hp":0,"mp":15}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
 
 class Chupacabras(object):
@@ -193,7 +193,7 @@ def __init__(self):
         self.autor="Masello-Riemer"
     def obtener_costos(self):
         """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad"""
-        valores_minimos={"destreza":5,"carisma":6,"xp":2,"mp":7}
+        valores_minimos={"destreza":5,"carisma":6,"mp":5}
         return valores_minimos
     def obtener_consecuencias(self,origen,destino):
         """Devuelve dos diccionarios con las alteraciones a realizar sobre los atributos de la criatura origen y la criatura destino
@@ -209,7 +209,7 @@ def __init__(self):
                     return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
         #Si la criatura cumple con los requisitos necesarios, se procede
         modificaciones_criatura_destino={"fuerza":-1,"inteligencia":0,"contextura":-1, "destreza":0, "carisma":0,"sabiduria":0,"xp":1,"hp":-15,"mp":0}
-        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":1, "destreza":3, "carisma":5,"sabiduria":2,"xp":3,"hp":15,"mp":2}   
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":1, "destreza":3,"xp":2,"hp":15,"mp":2}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
 class Furia_de_Ares(object):
     """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
@@ -220,7 +220,7 @@ def __init__(self):
         self.autor="Masello-Riemer"
     def obtener_costos(self):
         """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad"""
-        valores_minimos={"sabiduria":5,"xp":6,"mp":8}
+        valores_minimos={"sabiduria":5,"xp":12,"mp":8}
         return valores_minimos
     def obtener_consecuencias(self,origen,destino):
         """Devuelve dos diccionarios con las alteraciones a realizar sobre los atributos de la criatura origen y la criatura destino
@@ -235,8 +235,8 @@ def __init__(self):
                 if valores_minimos[clave]>atributos_criatura[clave]:      #Caso en que los atributos de la criatura no alcanzan para realizar la habilidad
                     return  modificaciones_criatura_origen, modificaciones_criatura_destino   #Devuelve los diccionarios con dichos valores en 0
         #Si la criatura cumple con los requisitos necesarios, se procede
-        modificaciones_criatura_destino={"fuerza":-5,"inteligencia":0,"contextura":-1, "destreza":0, "carisma":0,"sabiduria":0,"xp":1,"hp":-25,"mp":0}
-        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":5,"xp":3,"hp":0,"mp":-1}   
+        modificaciones_criatura_destino={"fuerza":-5,"inteligencia":0,"contextura":-1, "destreza":0, "carisma":0,"sabiduria":0,"xp":3,"hp":-35,"mp":0}
+        modificaciones_criatura_origen={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":5,"xp":5,"hp":0,"mp":-8}   
         return modificaciones_criatura_origen, modificaciones_criatura_destino
 class Posion(object):
     """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
