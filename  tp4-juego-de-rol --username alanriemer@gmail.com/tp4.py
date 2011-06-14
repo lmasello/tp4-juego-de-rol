@@ -1,9 +1,9 @@
 import random
 class Criatura(object):
-	"""Objeto donde se encuentran los atributos y habilidades de las criaturas"""
+	"""Objeto donde se encuentran los atributos y habilidades de las criaturas. Tiene los metodos: __init__, obtener_estado, aplicar_consecuencias, obtenerhabilidades"""
 	def __init__(self):
-		"""Metodo constructor de la clase. Crea la instancia de la clase de las criaturas.
-		precondiciones: """
+		 """Metodo constructor de la clase. Crea la instancia de la clase de las criaturas. Se inicializan las caracteristicas y los indicadores en 0. Para cada caracteristica, se tiran 3 dados y la suma de estas 3 tiradas sera el puntaje inicial. Los puntos de hp seran la suma de todas las habilidades, mientras que los puntos de magia sera la suma de inteligencia y sabiduria
+                """
 		self.caracteristicas={"fuerza":0,"inteligencia":0,"contextura":0, "destreza":0, "carisma":0,"sabiduria":0}
 		for clave in self.caracteristicas.keys():
                     tirar_dados=random.randrange(1,7)+random.randrange(1,7)+random.randrange(1,7)
@@ -15,7 +15,9 @@ class Criatura(object):
                 self.nombre=None
 
 	def obtener_estado(self):
-                """MÃ©todo que devuelve un diccionario con los atributos de la criatura y su estado"""
+                """Metodo que devuelve un diccionario con los atributos de la criatura y su estado
+		precondiciones: Los diccionarios no deben estar vacios.
+		postcondiciones: Devuelve diccionario con los atributos de la criatura"""
                 estado_atributos={}
                 for clave in self.caracteristicas.keys():
                         estado_atributos[clave]=self.caracteristicas[clave]
@@ -24,13 +26,16 @@ class Criatura(object):
                 return estado_atributos
                 
    def aplicar_consecuencias(self, consecuencias):
-                """Aplica consecuencias al recibir ataque o realizar ataque"""
+                """Aplica las consecuencias a los atributos de la criatura al recibir ataque o realizar ataque.
+		precondiciones: Consecuencias debe ser una habilidad
+		postcondiciones: Realiza una transformacion en los indicadores y en las caracteristicas de la criatura"""
                 for clave in consecuencias.keys():
                         self.indicadores[clave]=self.indicadores[clave]+consecuencias[clave]
                         self.caracteristicas[clave]=self.caracteristicas[clave]+consecuencias[clave]
    def obtenerhabilidades(self):
                 """Metodo que devuelve diccionario con las habilidades de la criatura.
-Las claves son el nombre de la habilidad y los valores son la instancia de la clase correspondiente"""
+		Las claves son el nombre de la habilidad y los valores son la instancia de la clase correspondiente.
+		postcondiciones: Devuelve un diccionario con las 3 habilidades a usar. Dicho diccionario tiene como claves al nombre de la habilidad y como valor a dicho objeto """
                 habilidades_totales={"Big_Bang_Attack":Big_Bang_Attack(),"Psicoataque":Psicoataque(),"Chupacabras":Chupacabras(),"Golpe_martillo":Golpe_martillo(),
                 "Ataque_wachenhausen":Ataque_wachenhausen(),"Fatality":Fatality(),"Furia_de_Ares":Furia_de_Ares(),"Posion":Posion(),"Jugo_de_trebol":Jugo_de_trebol()}
                 habilidades_a_usar={}
