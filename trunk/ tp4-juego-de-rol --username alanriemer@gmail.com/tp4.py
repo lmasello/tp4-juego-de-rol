@@ -404,6 +404,14 @@ class Jugador (object):
           print "Le toco pelear contra:", destino.nombre
           print "Su monstruo es:", origen.nombre
           print "Sus habilidades son:", habilidades_criatura.keys()
+          #Si tiene vida menor a 15 le pregunta si desea huir
+		if hp_criatura_origen<15:
+			opcion_huir=raw_input("Su criatura posee un hp menor a 15.¿Desea huir de la batalla?:").upper()
+			while opcion_huir!="SI" or opcion_huir!="NO":  #No lo deja continuar si no ingrese si o no
+				print "Ingrese si o no"
+				opcion_huir=raw_input("Su criatura posee un hp menor a 15.¿Desea huir de la batalla?:").upper()
+			if opcion_huir=="SI":    #Si el jugador elige huir. Huye. Sino, continua el metodo
+				return None, destino
           habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
           while habilidad_elegida not in habilidades_criatura:
                 print "Sus habilidades son:", habilidades_criatura.keys()
@@ -413,7 +421,9 @@ class Jugador (object):
             raise ValueError("origeny destino deben ser del tipo Criatura")
 
 class Jugador_artificial_1(object):
+	"""Modela a jugador de inteligencia artificial. Tiene los metodos: __init__, agregar_criatura, eliminar_criatura, elegir_criatura"""
     def __init__(self):
+	"""Metodo constructor de la clase. Contiene una lista con las criaturas que poseee el jugador, los puntos del jugador(que aumentaran cada vez que el jugador gane una batalla)y el nombre, descripcion y autor del jugador"""
         self.criaturas=[]
         self.puntos=0
         self.nombre="Vegueta"
@@ -422,41 +432,56 @@ class Jugador_artificial_1(object):
     def agregar_criatura(self,criatura):       #Al no ser humano no le asigna nombre a la criatura
         """agrega una criatura de la lista de criaturas del jugador.
         precondiciones: criatura debe ser del tipo Criatura"""
-        self.criaturas.append(criatura)
+        if isinstance (criatura, Criatura):
+	        self.criaturas.append(criatura)
+	else:
+		raise ValueError ("criatura debe ser del tipo Criatura")
     def eliminar_criatura(self,criatura):
         """Elimina una criatura de la lista de criaturas del jugador. 
         precondiciones: criatura debe ser del tipo Criatura y la lista de criaturas debe contener a dicha criatura"""
         try:
-            self.criaturas.remove(criatura)
+		if isinstace (criatura,Criatura):
+			self.criaturas.remove(criatura)
+                else:
+			raise ValueError ("criatura debe ser del tipo Criatura")
+        except ValueError:
+		print "criatura debe ser del tipo criatura"        
         except:
-            raise ValueError("La criatura debe estar en la lista de criaturas")
+		print "La criatura debe estar en la lista de criaturas"
     def elegir_criatura(self):
-        """Metodo que devuelve la proxima criatura a utilizar en combate. Al no ser humano y no tener chances de elegirla se devolvera la primera criatura de su lista de criaturas, o bien None si no tiene criaturas disponibles. Entendemos que la proxima criatura a utilizar en combate es la que se encuentra primera en la lista"""
+        """Metodo que devuelve la proxima criatura a utilizar en combate. Al no ser humano y no tener chances de elegirla se devolvera la primera criatura de su lista de criaturas, o bien None si no tiene criaturas disponibles. Entendemos que la proxima criatura a utilizar en combate es la que se encuentra primera en la lista.
+	postcondiciones: Devuelve un objeto del tipo Criatura"""
         if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
             return None
         return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
    def elegir_accion(self,origen, destino):
-        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
-el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
-        habilidades_criatura=origen.obtenerhabilidades()     
-        lista_habilidades=habilidades_criatura.keys()
-        numero_aleatorio=random.randrange(0,len(lista_habilidades))    #Se guarda en una variable un numero de rango (0 a long de la lista de habilidades)
-        #Para la opcion huir
-        indicadores_de_criatura=origen.indicadores
-        try:
-            valor_hp=indicadores_de_criatura["hp"]
+        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. El jugador Vegueta elige aleatoriamente la accion a utilizar.
+	precondiciones: origen y destino deben ser del tipo Criatura.
+	postcondiciones: devuelve un objeto habilidad, o bien None en el caso de que huya y otro objeto de tipo Criatura"""
+        if isinstance (origen,Criatura) and isinstance(destino, Criatura):
+	        habilidades_criatura=origen.obtenerhabilidades()     
+		lista_habilidades=habilidades_criatura.keys()
+	        numero_aleatorio=random.randrange(0,len(lista_habilidades))    #Se guarda en una variable un numero de rango (0 a long de la lista de habilidades)
+		#Para la opcion huir
+	        indicadores_de_criatura=origen.indicadores
+		try:
+	            valor_hp=indicadores_de_criatura["hp"]
             #Si la vida es menor a 15 y el numero que sale de tirar los dados es 1 o 2, podra escapar
-            tirar_dados=random.randrange(1,7)
-            if valor_hp<=15 and tirar_dados==1 or valor_hp<=15 and tirar_dados==0:
-                return "huir", destino      #Verificar lo que devuelve, si es que devuelve "huir" o podria devolver None
-            return habilidades_criatura[lista_habilidades[numero_aleatorio]], destino     # Devuelve dos objetos: uno de tipo habilidad y otro de tipo Criatura
-        except:
-            print "Hay error en el diccionario de la criatura"
+		    tirar_dados=random.randrange(1,7)
+	            if valor_hp<=15 and tirar_dados==1 or valor_hp<=15 and tirar_dados==0:
+			    return None, destino      #La criatura logra huir
+	            return habilidades_criatura[lista_habilidades[numero_aleatorio]], destino     # Devuelve dos objetos: uno de tipo habilidad y otro de tipo Criatura
+		except:
+	            print "Hay error en el diccionario de la criatura"
+	else:
+		raise ValueError ("origen y destino deben ser del tipo Criatura")
             
 
                   
 class Jugador_artificial_2(object):
+	"""Modela a jugador de inteligencia artificial. Tiene los metodos: __init__, agregar_criatura, eliminar_criatura, elegir_criatura"""
     def __init__(self):
+	"""Metodo constructor de la clase. Contiene una lista con las criaturas que poseee el jugador, los puntos del jugador(que aumentaran cada vez que el jugador gane una batalla)y el nombre, descripcion y autor del jugador"""
         self.criaturas=[]
         self.puntos=0
         self.nombre="Goku"
@@ -465,52 +490,55 @@ class Jugador_artificial_2(object):
     def agregar_criatura(self,criatura):       #Al no ser humano no le asigna nombre a la criatura
         """agrega una criatura de la lista de criaturas del jugador.
         precondiciones: criatura debe ser del tipo Criatura"""
-        self.criaturas.append(criatura)
+        if isinstance (criatura, Criatura):
+	        self.criaturas.append(criatura)
+	else:
+		raise ValueError ("criatura debe ser del tipo Criatura")
     def eliminar_criatura(self,criatura):
         """Elimina una criatura de la lista de criaturas del jugador. Entendemos que la criatura a eliminar es la primera que se encuentra en la lista, ya que, al no tener posibilidades de elegirla, utiliza siempre la primera criatura de su lista de criaturas
         precondiciones: criatura debe ser del tipo Criatura y la lista de criaturas debe contener a dicha criatura"""
         try:
-            if isinstace (criatura,Criatura):
-                self.criaturas.remove(criatura)
-            else:
-                raise ValueError ("criatura debe ser del tipo Criatura")
+		if isinstance (criatura,Criatura): #mirar que habia error d tipeado
+		        self.criaturas.remove(criatura)
+                else:
+	                raise ValueError ("criatura debe ser del tipo Criatura")
         except ValueError:
-          print "criatura debe ser del tipo criatura"        
+		print "criatura debe ser del tipo criatura"        
         except:
-            print "La criatura debe estar en la lista de criaturas"
+                print "La criatura debe estar en la lista de criaturas"
     def elegir_criatura(self):
-        """Metodo que devuelve la proxima criatura a utilizar en combate. Al no ser humano y no tener chances de elegirla se devolvera la primera criatura de su lista de criaturas, o bien None si no tiene criaturas disponibles. Entendemos que la proxima criatura a utilizar en combate es la que se encuentra primera en la lista"""
+        """Metodo que devuelve la proxima criatura a utilizar en combate. Al no ser humano y no tener chances de elegirla se devolvera la primera criatura de su lista de criaturas, o bien None si no tiene criaturas disponibles. Entendemos que la proxima criatura a utilizar en combate es la que se encuentra primera en la lista
+	postcondiciones: Devuelve un objeto del tipo Criatura"""
         if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
             return None
         return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
    def elegir_accion(self,origen, destino):
-        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. En el caso de ser un jugador real, interactua con
-el usuario para decidirlo, en el caso de ser un jugador artificial, evalua programaticamente sus posibilidades y elige una."""
-        estado_criatura=origen.obtener_estado() #Diccionario con atributos e indicadores de origen
-        hp_origen=estado_criatura["hp"]
-        habilidades_criatura=origen.obtenerhabilidades() #Diccionario con habilidades de criatura origen
-        posibles_habilidades_a_usar=habilidades_criatura.keys() #Lista con nombres de habilidades a usar        
-        for habilidad in habilidades_criatura.values(): #Itera sobre los objetos habilidades del diccionario
-            costos=habilidad.obtener_costos() #Costos de la habilidad
-            for clave in costos: #Itera sobre las claves de los costos que son atributos e indicadores mínimos
-                 if estado_criatura[clave]<costos[clave]: #Verifica que tenga lo requerido para usar dicha habilidad
-                      posibles_habilidades_a_usar.remove(habilidad.nombre) #Si no alcanza ese atributo, borra esa opción  
-        diccionario_habilidades_hp={} #Diccionario que tiene como claves el hp que quita y como valor nombres filtrados de habilidad
-        for habilidad in posibles_habilidades_a_usar: #Itera sobre el nombre de las habilidades filtradas
-            objeto_habilidad=habilidades_criatura[habilidad] #Busca la instancia de dicha habilidad
-            (modificaciones_criatura_origen, modificaciones_criatura_destino)=objeto_habilidad.obtener_consecuencias()
-            if hp_origen<15: #Si tiene poca vida
-              if modificador_criatura_origen["hp"]>0: #Si dicha habilidad disponible le otorga vida, la elige
-                return habilidad, destino
-            hp_absoluto=abs(modificaciones_criatura_destino["hp"]) #Valor en absoluto del HP que quita dicha habilidad
-            diccionario_habilidades_hp[hp_absoluto]=habilidad #Guarda el HP que quita, como clave, y como valor el nombre de habilidad
-            
-        if hp_origen<15:#Si la vida es menor a 15 le permite huir
-          return "huir", origen      #Verificar lo que devuelve, si es que devuelve "huir" o podria devolver None
-        lista_hp=diccionario_habilidades_hp.keys() #Lista con valores de HP que quitan las habilidades
-        lista_hp.sort() #Ordena de menor a mayor
-        mayor_hp=lista_hp[len(lista_hp)-1] #Guardo el mayor HP
-        habilidad_elegida=diccionario_habilidades_hp[mayor_hp]
-        return habilidad_elegida, destino
-
-                
+        """Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. El jugador Goku podra elegir entre sus opciones mas convenientes a utilizar.
+	precondiciones: origen y destino deben ser del tipo Criatura.
+	postcondiciones: devuelve un objeto habilidad, o bien None en el caso de que huya y otro objeto de tipo Criatura"""
+        if isinstance (origen,Criatura) and isinstance(destino, Criatura):
+	        estado_criatura=origen.obtener_estado() #Diccionario con atributos e indicadores de origen
+		hp_origen=estado_criatura["hp"]
+	        habilidades_criatura=origen.obtenerhabilidades() #Diccionario con habilidades de criatura origen
+		posibles_habilidades_a_usar=habilidades_criatura.keys() #Lista con nombres de habilidades a usar        
+	        for habilidad in habilidades_criatura.values(): #Itera sobre los objetos habilidades del diccionario
+			costos=habilidad.obtener_costos() #Costos de la habilidad
+			for clave in costos: #Itera sobre las claves de los costos que son atributos e indicadores mínimos
+				if estado_criatura[clave]<costos[clave]: #Verifica que tenga lo requerido para usar dicha habilidad
+					posibles_habilidades_a_usar.remove(habilidad.nombre) #Si no alcanza ese atributo, borra esa opción  
+	        diccionario_habilidades_hp={} #Diccionario que tiene como claves el hp que quita y como valor nombres filtrados de habilidad
+		for habilidad in posibles_habilidades_a_usar: #Itera sobre el nombre de las habilidades filtradas
+			objeto_habilidad=habilidades_criatura[habilidad] #Busca la instancia de dicha habilidad
+	                (modificaciones_criatura_origen, modificaciones_criatura_destino)=objeto_habilidad.obtener_consecuencias()
+		        if hp_origen<15: #Si tiene poca vida
+		                if modificador_criatura_origen["hp"]>0: #Si dicha habilidad disponible le otorga vida, la elige
+				        return habilidad, destino
+	                hp_absoluto=abs(modificaciones_criatura_destino["hp"]) #Valor en absoluto del HP que quita dicha habilidad
+		        diccionario_habilidades_hp[hp_absoluto]=habilidad #Guarda el HP que quita, como clave, y como valor el nombre de habilidad
+	        if hp_origen<15:#Si la vida es menor a 15 le permite huir
+			return None, origen     #El jugador huye
+	        lista_hp=diccionario_habilidades_hp.keys() #Lista con valores de HP que quitan las habilidades
+		lista_hp.sort() #Ordena de menor a mayor
+	        mayor_hp=lista_hp[len(lista_hp)-1] #Guardo el mayor HP
+		habilidad_elegida=diccionario_habilidades_hp[mayor_hp]
+	        return habilidad_elegida, destino
