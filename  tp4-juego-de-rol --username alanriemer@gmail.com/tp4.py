@@ -57,7 +57,7 @@ class Golpe_martillo(object):
 	def __init__(self):
 		"""Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
                 self.nombre="Golpe martillo"
-                self.descripcion="Golpe de puño ágil y poderoso"
+                self.descripcion="Golpe de puÃ±o Ã¡gil y poderoso"
                 self.autor="Riemer - Masello"
         def obtener_costos(self):
                 """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad.
@@ -90,7 +90,7 @@ class Ataque_wachenhausen(object):
         def __init__(self):
 	        """Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
                 self.nombre="Ataque_wachenhausen"
-                self.descripcion="Utilizado por aquellas criaturas con un grado de inteligencia notable. El Ataque_wachenhausen incorpora a la criatura una determiada inteligencia y la posibilidad de usar un ataque utilizado con la telepatia para dañar al oponente"
+                self.descripcion="Utilizado por aquellas criaturas con un grado de inteligencia notable. El Ataque_wachenhausen incorpora a la criatura una determiada inteligencia y la posibilidad de usar un ataque utilizado con la telepatia para daÃ±ar al oponente"
                 self.autor="Riemer-Masello"
         def obtenercostos(self):
                 """Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad.
@@ -154,7 +154,7 @@ class Big_Bang_Attack(object):
 	def __init__(self):
 		"""Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
 	        self.nombre="Big Bang Attack"
-	        self.descripcion="El ataque Big Bang es un enorme rayo de energia con un increible poder de destrucciÃ³n. La criatura extiende su mano hacia el enemigo y lanza el rayo"
+	        self.descripcion="El ataque Big Bang es un enorme rayo de energia con un increible poder de destrucciÃÂ³n. La criatura extiende su mano hacia el enemigo y lanza el rayo"
 		self.autor="Masello-Riemer"
 	def obtener_costos(self):
 		"""Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad.
@@ -186,7 +186,7 @@ class Psicoataque(object):
 	def __init__(self):
 		"""Metodo constructor de la clase. Crea la instancia de la clase. Contiene los atributos nombre, descripcion, autor """
 	        self.nombre="Psicoataque"
-	        self.descripcion="El psicoataque es un ataque que utiliza la fuerza del oponente y la utiliza para causarle daños psicologicos. Este ataque lo podran utilizar aquellas criaturas que posean un elevado grado de inteligencia"
+	        self.descripcion="El psicoataque es un ataque que utiliza la fuerza del oponente y la utiliza para causarle daÃ±os psicologicos. Este ataque lo podran utilizar aquellas criaturas que posean un elevado grado de inteligencia"
 	        self.autor="Masello-Riemer"
 	def obtener_costos(self):
 		"""Devuelve un diccionario con los valores minimos de caracteristicas y/o indicadores que debe tener la criatura para poder aplicar la habilidad.
@@ -418,10 +418,10 @@ class Jugador (object):
 			print "Sus habilidades son:", habilidades_criatura.keys()
 			#Si tiene vida menor a 15 le pregunta si desea huir
 			if hp_criatura_origen<15:
-				opcion_huir=raw_input("Su criatura posee un hp menor a 15.¿Desea huir de la batalla?:").upper()
+				opcion_huir=raw_input("Su criatura posee un hp menor a 15.Â¿Desea huir de la batalla?:").upper()
 				while opcion_huir!="SI" or opcion_huir!="NO":  #No lo deja continuar si no ingrese si o no
 					print "Ingrese si o no"
-					opcion_huir=raw_input("Su criatura posee un hp menor a 15.¿Desea huir de la batalla?:").upper()
+					opcion_huir=raw_input("Su criatura posee un hp menor a 15.Â¿Desea huir de la batalla?:").upper()
 				if opcion_huir=="SI":    #Si el jugador elige huir. Huye. Sino, continua el metodo
 					return None, destino
 		        habilidad_elegida=raw_input("Ingrese la habilidad elegida:")
@@ -465,7 +465,7 @@ class Jugador_artificial_1(object):
 		postcondiciones: Devuelve un objeto del tipo Criatura"""
 		if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
 		        return None
-	        return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
+	        return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1Âº elemento de dicha lista
 	def elegir_accion(self,origen, destino):
 		"""Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. El jugador Vegueta elige aleatoriamente la accion a utilizar.
 		precondiciones: origen y destino deben ser del tipo Criatura.
@@ -522,7 +522,7 @@ class Jugador_artificial_2(object):
 		postcondiciones: Devuelve un objeto del tipo Criatura"""
 		if self.criaturas==[]:  #Si la lista de criaturas es vacia devuelve None
 			return None
-		return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1º elemento de dicha lista
+		return self.criaturas[0]   #Si hay elementos en la lista de criaturas devuelve el 1Âº elemento de dicha lista
 	def elegir_accion(self,origen, destino):
 		"""Devuelve el nombre de la habilidad a utilizar y la criatura destino de la habilidad. El jugador Goku podra elegir entre sus opciones mas convenientes a utilizar.
 		precondiciones: origen y destino deben ser del tipo Criatura.
@@ -534,9 +534,9 @@ class Jugador_artificial_2(object):
 			posibles_habilidades_a_usar=habilidades_criatura.keys() #Lista con nombres de habilidades a usar        
 			for habilidad in habilidades_criatura.values(): #Itera sobre los objetos habilidades del diccionario
 				costos=habilidad.obtener_costos() #Costos de la habilidad
-				for clave in costos: #Itera sobre las claves de los costos que son atributos e indicadores mínimos
+				for clave in costos: #Itera sobre las claves de los costos que son atributos e indicadores mÃ­nimos
 					if estado_criatura[clave]<costos[clave]: #Verifica que tenga lo requerido para usar dicha habilidad
-						posibles_habilidades_a_usar.remove(habilidad.nombre) #Si no alcanza ese atributo, borra esa opción  
+						posibles_habilidades_a_usar.remove(habilidad.nombre) #Si no alcanza ese atributo, borra esa opciÃ³n  
 		        diccionario_habilidades_hp={} #Diccionario que tiene como claves el hp que quita y como valor nombres filtrados de habilidad
 			for habilidad in posibles_habilidades_a_usar: #Itera sobre el nombre de las habilidades filtradas
 				objeto_habilidad=habilidades_criatura[habilidad] #Busca la instancia de dicha habilidad
@@ -576,7 +576,7 @@ def menu():
     print "1) Yo vs Computadora"
     print "2) Computadora vs Computadora"
     print "3) Yo vs otro jugador"
-    opcion=raw_input("Ingrese su número de opcion:")
+    opcion=raw_input("Ingrese su nÃºmero de opcion:")
     if opcion=="1":
         jugador1=Jugador()
         nombre=raw_input("Ingrese su nombre:")
@@ -607,14 +607,14 @@ def menu():
         batalla(jugador1, jugador2)
 
 def batalla(jugador1, jugador2):
-    """Función que recibe dos jugadores, y crea la batalla entre sus monstruos"""
+    """FunciÃ³n que recibe dos jugadores, y crea la batalla entre sus monstruos"""
     while True: #Cicla en cada batalla
         if len(jugador1.criaturas)==0:
-                print jugador1.nombre, "no tiene m�s criaturas, se le crear� una nueva"
+                print jugador1.nombre, "no tiene más criaturas, se le creará una nueva"
                 criatura_nueva_1=Criatura()
                 jugador1.agregar_criatura(criatura_nueva_1)
         if len(jugador2.criaturas)==0:
-                print jugador2.nombre, "no tiene m�s criaturas, se le crear� una nueva"
+                print jugador2.nombre, "no tiene más criaturas, se le creará una nueva"
                 criatura_nueva_2=Criatura()
                 jugador2.agregar_criatura(criatura_nueva_2)
                 
@@ -636,8 +636,8 @@ def batalla(jugador1, jugador2):
             diccionario_habilidades_1=criatura_elegida_1.obtenerhabilidades()#Guarda el diccionario de habilidades de dicha criatura del jugador 1
             habilidad_elegida_1=diccionario_habilidades_1[accion_elegida_1] #Busca y guarda el OBJETO habilidad elegida por el jugador 1
             (modificador_origen_1, modificador_destino_1)=habilidad_elegida_1.obtener_consecuencias(criatura_elegida_1, criatura_elegida_2) #Guarda las consecuencias de la habilidad elegida por jugador1
-            criatura_elegida_1.aplicar_consecuencias(modificador_origen_1) #Aplica las consecuencias del ataque que realizó el jugador 1, en su monstruo
-            criatura_elegida_1.aplicar_consecuencias(modificador_destino_2) #Aplica las consecuencias del ataque que realizó el jugador 1, en el destino
+            criatura_elegida_1.aplicar_consecuencias(modificador_origen_1) #Aplica las consecuencias del ataque que realizÃ³ el jugador 1, en su monstruo
+            criatura_elegida_1.aplicar_consecuencias(modificador_destino_2) #Aplica las consecuencias del ataque que realizÃ³ el jugador 1, en el destino
             #Luego del estado se modifican los atributos de las criaturas, por lo dicho se cargan de nuevo los estados de la criatura atacada, para ver si perdio
             estado_criatura_jugador2=criatura_elegida_2.obtener_estado()
             #Si con el ataque mata a la criatura
@@ -646,6 +646,7 @@ def batalla(jugador1, jugador2):
                 jugador1.puntos+=1
                 #Se reestablecen los puntos de vida y magia con los que la criatura comenzo el combate. HACER
                 print "La batalla la ha ganado:",jugador1
+                jugador2.criaturas.remove(criatura_elegida_2)  #Borra a la criatura de la lista de criaturas del jugador
                 break  #Sale del ciclo
        #Si la criatura del jugador dos tiene mayores puntos de contextura y destreza comienza el turno el jugador 2
         else:
@@ -653,8 +654,8 @@ def batalla(jugador1, jugador2):
             diccionario_habilidades_2=criatura_elegida_2.obtenerhabilidades() #Guarda el diccionario de habilidades de la criatura del jugador 2
             habilidad_elegida_2=diccionario_habilidades_2[accion_elegida_2] #Busca y guarda el OBJETO habilidad elegida por el jugador 2
             (modificador_origen_2, modificador_destino_2)=habilidad_elegida_2.obtener_consecuencias(criatura_elegida_2, criatura_elegida_1) #Guarda las consecuencias de la habilidad elegida por jugador2
-            criatura_elegida_2.aplicar_consecuencias(modificador_origen_2) #Aplica las consecuencias del ataque que realizó el jugador 2, en su monstruo
-            criatura_elegida_2.aplicar_consecuencias(modificador_destino_1) #Aplica las consecuencias del ataque que realizó el jugador 2, en el destino
+            criatura_elegida_2.aplicar_consecuencias(modificador_origen_2) #Aplica las consecuencias del ataque que realizÃ³ el jugador 2, en su monstruo
+            criatura_elegida_2.aplicar_consecuencias(modificador_destino_1) #Aplica las consecuencias del ataque que realizÃ³ el jugador 2, en el destino
             estado_2=criatura_elegida_2.obtener_estado() #Diccionario de esto de la criatura del jugador 2
             #Luego del estado se modifican los atributos de las criaturas, por lo dicho se cargan de nuevo los estados de la criatura atacada, para ver si perdio
             estado_criatura_jugador1=criatura_elegida_1.obtener_estado()
@@ -664,4 +665,5 @@ def batalla(jugador1, jugador2):
                 jugador2.puntos+=1
                 #Se reestablecen los puntos de vida y magia con los que la criatura comenzo el combate. HACER
                 print "La batalla la ha ganado:",jugador2
+                jugador1.criaturas.remove(criatura_elegida_1)  #Borra a la criatura de la lista de criaturas del jugador
                 break  #Sale del ciclo
