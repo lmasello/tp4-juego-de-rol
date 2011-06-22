@@ -571,7 +571,7 @@ import jugadores
 import criatura
 
 def menu():
-    criatura1=Criatura()
+    criatura1=Criatura() #Se inicializarán 4 criaturas, 2 para cada jugador
     criatura2=Criatura()
     criatura3=Criatura()
     criatura4=Criatura()
@@ -585,6 +585,10 @@ def menu():
         nombre=raw_input("Ingrese su nombre:")
         jugador1.nombre=nombre
         jugador2=Jugador_artificial_2()
+        jugador1.agregar_criatura(criatura1)
+        jugador1.agregar_criatura(criatura2)
+        jugador2.agregar_criatura(criatura3)
+        jugador2.agregar_criatura(criatura4)
         batalla(jugador1,jugador2)
     if opcion=="2":
         jugador1=Jugador_artificial_2()
