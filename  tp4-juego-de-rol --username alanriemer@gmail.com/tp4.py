@@ -395,6 +395,7 @@ class Jugador (object):
 		for criatura in self.criaturas:        #Se itera en las criaturas del jugador, para obtener los nombres de aquellas y asi verificar si el nombre de la criatura que ingresa el usuario es de alguna criatura
 		        nombres_criaturas.append(criatura.nombre)
 		print nombres_criaturas
+      print self.nombre
 	        criatura_elegida=raw_input("Que criatura desea elegir para el combate?:")
 		while criatura_elegida not in nombres_criaturas:     #Caso en que el usuario ingresa incorrectamente la criatura
 	                print "El nombre de la criatura ingresada no se encuentra en su lista de criaturas"
@@ -622,7 +623,7 @@ def batalla(jugador1, jugador2):
             accion_elegida_1, destino_1 =jugador1.elegir_accion(criatura_elegida_1, criatura_elegida_2) #Jugador 1 elije accion
             diccionario_habilidades_1=criatura_elegida_1.obtenerhabilidades()#Guarda el diccionario de habilidades de dicha criatura del jugador 1
             habilidad_elegida_1=diccionario_habilidades_1[accion_elegida_1] #Busca y guarda el OBJETO habilidad elegida por el jugador 1
-            modificador_origen_1, modificador_destino_1=habilidad_elegida_1.obtenerconsecuencias() #Guarda las consecuencias de la habilidad elejida por jugador1
+            modificador_origen_1, modificador_destino_1=habilidad_elegida_1.obtener_consecuencias() #Guarda las consecuencias de la habilidad elejida por jugador1
             criatura_elegida_1.aplicar_consecuencias(modificador_origen_1) #Aplica las consecuencias del ataque que realizó el jugador 1, en su monstruo
             criatura_elegida_1.aplicar_consecuencias(modificador_destino_2) #Aplica las consecuencias del ataque que realizó el jugador 1, en el destino
             #Luego del estado se modifican los atributos de las criaturas, por lo dicho se cargan de nuevo los estados de la criatura atacada, para ver si perdio
@@ -639,7 +640,7 @@ def batalla(jugador1, jugador2):
             accion_elegida_2, destino_2 =jugador2.elegir_accion(criatura_elegida_2, criatura_elegida_1) #Jugador 2 elije accion
             diccionario_habilidades_2=criatura_elegida_2.obtenerhabilidades() #Guarda el diccionario de habilidades de la criatura del jugador 2
             habilidad_elegida_2=diccionario_habilidades_2[accion_elegida_2] #Busca y guarda el OBJETO habilidad elegida por el jugador 2
-            modificador_origen_2, modificador_destino_2=habilidad_elegida_2.obtenerconsecuencias() #Guarda las consecuencias de la habilidad elejida por jugador2
+            modificador_origen_2, modificador_destino_2=habilidad_elegida_2.obtener_consecuencias() #Guarda las consecuencias de la habilidad elejida por jugador2
             criatura_elegida_2.aplicar_consecuencias(modificador_origen_2) #Aplica las consecuencias del ataque que realizó el jugador 2, en su monstruo
             criatura_elegida_2.aplicar_consecuencias(modificador_destino_1) #Aplica las consecuencias del ataque que realizó el jugador 2, en el destino
             estado_2=criatura_elegida_2.obtener_estado() #Diccionario de esto de la criatura del jugador 2
