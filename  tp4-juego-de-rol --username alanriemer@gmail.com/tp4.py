@@ -42,12 +42,15 @@ class Criatura(object):
                 Las claves son el nombre de la habilidad y los valores son la instancia de la clase correspondiente.
                 postcondiciones: Devuelve un diccionario con las 3 habilidades a usar. Dicho diccionario tiene como claves al nombre de la habilidad y como valor a dicho objeto """
                 habilidades_totales={"Big_Bang_Attack":Big_Bang_Attack(),"Psicoataque":Psicoataque(),"Chupacabras":Chupacabras(),"Golpe_martillo":Golpe_martillo(),"Ataque_wachenhausen":Ataque_wachenhausen(),"Fatality":Fatality(),"Furia_de_Ares":Furia_de_Ares(),"Posion":Posion(),"Jugo_de_trebol":Jugo_de_trebol()}
-                habilidades_a_usar={}
-                cont=3
-                while cont>0:
-                        for clave in habilidades_totales.keys():
-                                habilidades_a_usar[clave]=habilidades_totales[clave]
-                                cont-=1
+                habilidades_a_usar={} #Diccionario que contendrá las 3 habilidades de la criatura
+                numeros_usados=[] #Lista de números aleatorios
+                nombre_habilidades=habilidades_totales.keys() #Lista con los nombres de habilidades
+                while len(numeros_usados)<3:
+                        numero_aleatorio=random.randrange(0,10)
+			if numero_aleatorio not numeros_usados:
+                                habilidad=nombre_habilidades[numero_aleatorio]
+				habilidades_a_usar[habilidad]=habilidades_totales[habilidad]
+				numeros_usados.append(numero_aleatorio)
                 return  habilidades_a_usar
 
                         
