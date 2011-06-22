@@ -362,8 +362,8 @@ class Jugador (object):
 			        self.criaturas.append(criatura)
 		        else:
 			        nombres_criaturas=[]
-		                for criatura in self.criaturas:        #Se itera en las criaturas del jugador, para obtener los nombres de aquellas y asi verificar que el jugador no ingresa un nombre que posea otra criatura
-					nombres_criaturas.append(criatura.nombre)
+		                for creature in self.criaturas:        #Se itera en las criaturas del jugador, para obtener los nombres de aquellas y asi verificar que el jugador no ingresa un nombre que posea otra criatura
+					nombres_criaturas.append(creature.nombre)
 				nombre_criatura=raw_input("Ingrese el nombre de su criatura:")
 		                while nombre_criatura in nombres_criaturas:   #No lo deja continuar hasta que no ingrese un nombre valido
 			                print "Ya posee una criatura con ese nombre"
@@ -554,4 +554,46 @@ class Jugador_artificial_2(object):
 		        return habilidad_elegida, destino
 		else:
 			raise ValueError ("origen y destino deben ser del tipo Criatura")
+
+
+#Motor del juego
+def batalla(jugador1, jugador2):
+    while True: #Cicla en cada batalla 
+        criatura_elegida_1=jugador1.elegir_criatura() # El jugador 1, elije la criatura para luchar
+        estado_criatura_jugador1=criatura_elegida_1.obtener_estado()
+        print estado_criatura_jugador1 # Le muestra el estado de dicha criatura
+        criatura_elegida_2=jugador2.elegir_criatura() #El jugador 2, elije la criatura para luchar
+        estado_criatura_jugador2=criatura_elegida_2.obtener_estado()
+        print estado_criatura_jugador2 # Le muestra el estado de la criatura
+        #Evalua quien comienza el turno
+        suma_contex_destreza_criatura_jug1=estado_criatura_jugador1["contextura"]+estado_criatura_jugador1["destreza"]
+        suma_contex_destreza_criatura_jug2=estado_criatura_jugador2["contextura"]+estado_criatura_jugador2["destreza"]
+        if suma_contex_destreza_criatura_jug1>suma_contex_destreza_criatura_jug2:    #Si la criatura del jugador 1 tiene una contextura y destreza cuya suma es mayor a la de la criatura del jugador 2, comienza el turno la criatura 1
+            accion_elegida_1, destino_1 =jugador1.elegir_accion(criatura_elegida_1, criatura_elegida_2) #Jugador 1 elije accion, ¡¡OJO!!, DEVUELVE NOMBRE DE ACCION Y NO OBJETO
+            accion_elegida_2, destino_2 =jugador2.elegir_accion(criatura_elegida_2, criatura_elegida_1)
+        
+            diccionario_habilidades_1=criatura_elegida_1.obtenerhabilidades()
+            diccionario_habilidades_2=criatura_elegida_2.obtenerhabilidades()
+        
+            habilidad_elegida_1=diccionario_habilidades_1[accion_elegida_1]
+            habilidad_elegida_2=diccionario_habilidades_2[accion_elegida_2]
+
+            modificador_origen_1, modificador_destino_1=habilidad_elegida_1.obtenerconsecuencias()
+            modificador_origen_2, modificador_destino_2=habilidad_elegida_2.obtenerconsecuencias()
+        
+            criatura_elegida_1.aplicar_consecuencias(modificador_origen_1) #Aplica las consecuencias para el monstruo uno
+            criatura_elegida_1.aplicar_consecuencias(modificador_destino_2)
+            criatura_elegida_2.aplicar_consecuencias(modificador_origen_2)
+            criatura_elegida_2.aplicar_consecuencias(modificador_destino_1)
+        
+        print "Jugador:", jugador1.nombre, "su criatura:", criatura_elegida_1.nombre, " quedó en el siguiente estado"
+        estado_1=criatura_elegida_1.obtener_estado()
+        estado_2=criatura_elegida_2.obtener_estado()
+        print estado_1
+        print "Jugador:", jugador2.nombre, "su criatura:", criatura_elegida_2.nombre, " quedó en el siguiente estado"
+        print estado_2
+        
+        if estado_1["hp"]<0 or estado_2["hp"]<0:
+            break
+            
 
