@@ -611,7 +611,7 @@ def menu():
 
 def batalla(jugador1, jugador2):
     """FunciÃ³n que recibe dos jugadores, y crea la batalla entre sus monstruos"""
-    while True: #Cicla en cada batalla
+    while True: #Cicla hasta que se desee no jugar m�s
         if len(jugador1.criaturas)==0:
                 print jugador1.nombre, "no tiene más criaturas, se le creará una nueva"
                 criatura_nueva_1=Criatura()
@@ -623,50 +623,70 @@ def batalla(jugador1, jugador2):
                 
         criatura_elegida_1=jugador1.elegir_criatura() # El jugador 1, elije la criatura para luchar
         estado_criatura_jugador1=criatura_elegida_1.obtener_estado()
+        indicadores_criatura_1=criatura_elegida_1.indicadores #Diccionario de indicadores de la criatura elegida del Jugador 1
         print estado_criatura_jugador1 # Le muestra el estado de dicha criatura
         
         criatura_elegida_2=jugador2.elegir_criatura() #El jugador 2, elije la criatura para luchar
         estado_criatura_jugador2=criatura_elegida_2.obtener_estado()
+        indicadores_criatura_2=criatura_elegida_2.indicadores #Diccionario de indicadores de la criatura elegida del Jugador 2
         print estado_criatura_jugador2 # Le muestra el estado de la criatura
         
-        #Evalua quien comienza el turno
-        suma_contex_destreza_criatura_jug1=estado_criatura_jugador1["contextura"]+estado_criatura_jugador1["destreza"]
-        suma_contex_destreza_criatura_jug2=estado_criatura_jugador2["contextura"]+estado_criatura_jugador2["destreza"]
+        while True: #Cicla hasta que una de las criaturas muera
+                suma_contex_destreza_criatura_jug1=estado_criatura_jugador1["contextura"]+estado_criatura_jugador1["destreza"]
+                suma_contex_destreza_criatura_jug2=estado_criatura_jugador2["contextura"]+estado_criatura_jugador2["destreza"]
         
-        if suma_contex_destreza_criatura_jug1>suma_contex_destreza_criatura_jug2:    #Si la criatura del jugador 1 tiene una contextura y destreza cuya suma es mayor a la de la criatura del jugador 2, comienza el turno la criatura 1
-            #Ataca la criatura del jugador 1
-            accion_elegida_1, destino_1 =jugador1.elegir_accion(criatura_elegida_1, criatura_elegida_2) #Jugador 1 elije accion
-            diccionario_habilidades_1=criatura_elegida_1.obtenerhabilidades()#Guarda el diccionario de habilidades de dicha criatura del jugador 1
-            habilidad_elegida_1=diccionario_habilidades_1[accion_elegida_1] #Busca y guarda el OBJETO habilidad elegida por el jugador 1
-            (modificador_origen_1, modificador_destino_1)=habilidad_elegida_1.obtener_consecuencias(criatura_elegida_1, criatura_elegida_2) #Guarda las consecuencias de la habilidad elegida por jugador1
-            criatura_elegida_1.aplicar_consecuencias(modificador_origen_1) #Aplica las consecuencias del ataque que realizÃ³ el jugador 1, en su monstruo
-            criatura_elegida_1.aplicar_consecuencias(modificador_destino_2) #Aplica las consecuencias del ataque que realizÃ³ el jugador 1, en el destino
-            #Luego del estado se modifican los atributos de las criaturas, por lo dicho se cargan de nuevo los estados de la criatura atacada, para ver si perdio
-            estado_criatura_jugador2=criatura_elegida_2.obtener_estado()
-            #Si con el ataque mata a la criatura
-            if estado_criatura_jugador2["hp"]<=0:
-                #se le agrega un punto al jugador poseedor de la criatura triunfante
-                jugador1.puntos+=1
-                #Se reestablecen los puntos de vida y magia con los que la criatura comenzo el combate. HACER
-                print "La batalla la ha ganado:",jugador1
-                jugador2.criaturas.remove(criatura_elegida_2)  #Borra a la criatura de la lista de criaturas del jugador
-                break  #Sale del ciclo
-       #Si la criatura del jugador dos tiene mayores puntos de contextura y destreza comienza el turno el jugador 2
-        else:
-            accion_elegida_2, destino_2 =jugador2.elegir_accion(criatura_elegida_2, criatura_elegida_1) #Jugador 2 elije accion
-            diccionario_habilidades_2=criatura_elegida_2.obtenerhabilidades() #Guarda el diccionario de habilidades de la criatura del jugador 2
-            habilidad_elegida_2=diccionario_habilidades_2[accion_elegida_2] #Busca y guarda el OBJETO habilidad elegida por el jugador 2
-            (modificador_origen_2, modificador_destino_2)=habilidad_elegida_2.obtener_consecuencias(criatura_elegida_2, criatura_elegida_1) #Guarda las consecuencias de la habilidad elegida por jugador2
-            criatura_elegida_2.aplicar_consecuencias(modificador_origen_2) #Aplica las consecuencias del ataque que realizÃ³ el jugador 2, en su monstruo
-            criatura_elegida_2.aplicar_consecuencias(modificador_destino_1) #Aplica las consecuencias del ataque que realizÃ³ el jugador 2, en el destino
-            estado_2=criatura_elegida_2.obtener_estado() #Diccionario de esto de la criatura del jugador 2
-            #Luego del estado se modifican los atributos de las criaturas, por lo dicho se cargan de nuevo los estados de la criatura atacada, para ver si perdio
-            estado_criatura_jugador1=criatura_elegida_1.obtener_estado()
-            #Si con el ataque mata a la criatura
-            if estado_criatura_jugador1["hp"]<=0:
-                #se le agrega un punto al jugador poseedor de la criatura triunfante
-                jugador2.puntos+=1
-                #Se reestablecen los puntos de vida y magia con los que la criatura comenzo el combate. HACER
-                print "La batalla la ha ganado:",jugador2
-                jugador1.criaturas.remove(criatura_elegida_1)  #Borra a la criatura de la lista de criaturas del jugador
-                break  #Sale del ciclo
+                if suma_contex_destreza_criatura_jug1>suma_contex_destreza_criatura_jug2:    #Si la criatura del jugador 1 tiene una contextura y destreza cuya suma es mayor a la de la criatura del jugador 2, comienza el turno la criatura 1
+                    #Ataca la criatura del jugador 1
+                    accion_elegida_1, destino_1 =jugador1.elegir_accion(criatura_elegida_1, criatura_elegida_2) #Jugador 1 elije accion
+                    diccionario_habilidades_1=criatura_elegida_1.obtenerhabilidades()#Guarda el diccionario de habilidades de dicha criatura del jugador 1
+                    habilidad_elegida_1=diccionario_habilidades_1[accion_elegida_1] #Busca y guarda el OBJETO habilidad elegida por el jugador 1
+                    (modificador_origen_1, modificador_destino_1)=habilidad_elegida_1.obtener_consecuencias(criatura_elegida_1, criatura_elegida_2) #Guarda las consecuencias de la habilidad elegida por jugador1
+                    criatura_elegida_1.aplicar_consecuencias(modificador_origen_1) #Aplica las consecuencias del ataque que realizÃ³ el jugador 1, en su monstruo
+                    criatura_elegida_1.aplicar_consecuencias(modificador_destino_2) #Aplica las consecuencias del ataque que realizÃ³ el jugador 1, en el destino
+                    #Luego del estado se modifican los atributos de las criaturas, por lo dicho se cargan de nuevo los estados de la criatura atacada, para ver si perdio
+                    estado_criatura_jugador2=criatura_elegida_2.obtener_estado()
+                        #Si con el ataque mata a la criatura
+                    if estado_criatura_jugador2["hp"]<=0:
+                        #se le agrega un punto al jugador poseedor de la criatura triunfante
+                        jugador1.puntos+=1
+                        criatura_elegida_1.indicadores=indicadores_criatura_1 #Recupera su estado la criatura ganadora
+                        #Se reestablecen los puntos de vida y magia con los que la criatura comenzo el combate. HACER
+                        print "La batalla la ha ganado:",jugador1
+                        jugador2.criaturas.remove(criatura_elegida_2)  #Borra a la criatura de la lista de criaturas del jugador
+                        break  #Sale del ciclo
+                #Si la criatura del jugador dos tiene mayores puntos de contextura y destreza comienza el turno el jugador 2
+                else:
+                    accion_elegida_2, destino_2 =jugador2.elegir_accion(criatura_elegida_2, criatura_elegida_1) #Jugador 2 elije accion
+                    diccionario_habilidades_2=criatura_elegida_2.obtenerhabilidades() #Guarda el diccionario de habilidades de la criatura del jugador 2
+                    habilidad_elegida_2=diccionario_habilidades_2[accion_elegida_2] #Busca y guarda el OBJETO habilidad elegida por el jugador 2
+                    (modificador_origen_2, modificador_destino_2)=habilidad_elegida_2.obtener_consecuencias(criatura_elegida_2, criatura_elegida_1) #Guarda las consecuencias de la habilidad elegida por jugador2
+                    criatura_elegida_2.aplicar_consecuencias(modificador_origen_2) #Aplica las consecuencias del ataque que realizÃ³ el jugador 2, en su monstruo
+                    criatura_elegida_2.aplicar_consecuencias(modificador_destino_1) #Aplica las consecuencias del ataque que realizÃ³ el jugador 2, en el destino
+                    estado_2=criatura_elegida_2.obtener_estado() #Diccionario de esto de la criatura del jugador 2
+                    #Luego del estado se modifican los atributos de las criaturas, por lo dicho se cargan de nuevo los estados de la criatura atacada, para ver si perdio
+                    estado_criatura_jugador1=criatura_elegida_1.obtener_estado()
+                    #Si con el ataque mata a la criatura
+                    if estado_criatura_jugador1["hp"]<=0:
+                        #se le agrega un punto al jugador poseedor de la criatura triunfante
+                        jugador2.puntos+=1
+                        criatura_elegida_2.indicadores=indicadores_criatura_2 #Recupera su estado la criatura ganadora
+                        #Se reestablecen los puntos de vida y magia con los que la criatura comenzo el combate. HACER
+                        print "La batalla la ha ganado:",jugador2
+                        jugador1.criaturas.remove(criatura_elegida_1)  #Borra a la criatura de la lista de criaturas del jugador
+                        break  #Sale del ciclo        
+                
+                        
+
+
+                        
+
+                        
+
+                        
+
+
+                        
+
+                        
+
+                                               
