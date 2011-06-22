@@ -608,16 +608,28 @@ def menu():
 
 def batalla(jugador1, jugador2):
     """FunciÃ³n que recibe dos jugadores, y crea la batalla entre sus monstruos"""
-    while True: #Cicla en cada batalla 
+    while True: #Cicla en cada batalla
+        if len(jugador1.criaturas)==0:
+                print jugador1.nombre, "no tiene más criaturas, se le creará una nueva"
+                criatura_nueva_1=Criatura()
+                jugador1.agregar_criatura(criatura_nueva_1)
+        if len(jugador2.criaturas)==0:
+                print jugador2.nombre, "no tiene más criaturas, se le creará una nueva"
+                criatura_nueva_2=Criatura()
+                jugador2.agregar_criatura(criatura_nueva_2)
+                
         criatura_elegida_1=jugador1.elegir_criatura() # El jugador 1, elije la criatura para luchar
         estado_criatura_jugador1=criatura_elegida_1.obtener_estado()
         print estado_criatura_jugador1 # Le muestra el estado de dicha criatura
+        
         criatura_elegida_2=jugador2.elegir_criatura() #El jugador 2, elije la criatura para luchar
         estado_criatura_jugador2=criatura_elegida_2.obtener_estado()
         print estado_criatura_jugador2 # Le muestra el estado de la criatura
+        
         #Evalua quien comienza el turno
         suma_contex_destreza_criatura_jug1=estado_criatura_jugador1["contextura"]+estado_criatura_jugador1["destreza"]
         suma_contex_destreza_criatura_jug2=estado_criatura_jugador2["contextura"]+estado_criatura_jugador2["destreza"]
+        
         if suma_contex_destreza_criatura_jug1>suma_contex_destreza_criatura_jug2:    #Si la criatura del jugador 1 tiene una contextura y destreza cuya suma es mayor a la de la criatura del jugador 2, comienza el turno la criatura 1
             #Ataca la criatura del jugador 1
             accion_elegida_1, destino_1 =jugador1.elegir_accion(criatura_elegida_1, criatura_elegida_2) #Jugador 1 elije accion
