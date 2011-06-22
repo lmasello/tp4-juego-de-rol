@@ -623,7 +623,7 @@ def batalla(jugador1, jugador2):
             accion_elegida_1, destino_1 =jugador1.elegir_accion(criatura_elegida_1, criatura_elegida_2) #Jugador 1 elije accion
             diccionario_habilidades_1=criatura_elegida_1.obtenerhabilidades()#Guarda el diccionario de habilidades de dicha criatura del jugador 1
             habilidad_elegida_1=diccionario_habilidades_1[accion_elegida_1] #Busca y guarda el OBJETO habilidad elegida por el jugador 1
-            modificador_origen_1, modificador_destino_1=habilidad_elegida_1.obtener_consecuencias() #Guarda las consecuencias de la habilidad elejida por jugador1
+            (modificador_origen_1, modificador_destino_1)=habilidad_elegida_1.obtener_consecuencias(criatura_elegida_1, criatura_elegida_2) #Guarda las consecuencias de la habilidad elegida por jugador1
             criatura_elegida_1.aplicar_consecuencias(modificador_origen_1) #Aplica las consecuencias del ataque que realizó el jugador 1, en su monstruo
             criatura_elegida_1.aplicar_consecuencias(modificador_destino_2) #Aplica las consecuencias del ataque que realizó el jugador 1, en el destino
             #Luego del estado se modifican los atributos de las criaturas, por lo dicho se cargan de nuevo los estados de la criatura atacada, para ver si perdio
@@ -640,7 +640,7 @@ def batalla(jugador1, jugador2):
             accion_elegida_2, destino_2 =jugador2.elegir_accion(criatura_elegida_2, criatura_elegida_1) #Jugador 2 elije accion
             diccionario_habilidades_2=criatura_elegida_2.obtenerhabilidades() #Guarda el diccionario de habilidades de la criatura del jugador 2
             habilidad_elegida_2=diccionario_habilidades_2[accion_elegida_2] #Busca y guarda el OBJETO habilidad elegida por el jugador 2
-            modificador_origen_2, modificador_destino_2=habilidad_elegida_2.obtener_consecuencias() #Guarda las consecuencias de la habilidad elejida por jugador2
+            (modificador_origen_2, modificador_destino_2)=habilidad_elegida_2.obtener_consecuencias(criatura_elegida_2, criatura_elegida_1) #Guarda las consecuencias de la habilidad elegida por jugador2
             criatura_elegida_2.aplicar_consecuencias(modificador_origen_2) #Aplica las consecuencias del ataque que realizó el jugador 2, en su monstruo
             criatura_elegida_2.aplicar_consecuencias(modificador_destino_1) #Aplica las consecuencias del ataque que realizó el jugador 2, en el destino
             estado_2=criatura_elegida_2.obtener_estado() #Diccionario de esto de la criatura del jugador 2
